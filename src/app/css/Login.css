@@ -1,0 +1,99 @@
+.DivContentLogin{
+    height: 100vh;
+    background: rgb(114, 114, 114)!important;  
+}
+
+.cardlogin{
+    width: 16rem;
+    padding: 1rem;
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
+    background: #eeeeee !important;
+}
+
+.hrLogin{
+    margin-top:30px;
+    width:80%;
+}
+
+.labelerror{
+    background: #ff1c1c;
+    float: right;
+    border-radius: 3px;
+    color: #ffffff;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 0.7rem !important;
+    height: 1.2rem;
+}
+
+.labelok{
+    background: #00c500;
+    float: right;
+    border-radius: 3px;
+    color: #ffffff;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 0.7rem !important;
+    height: 1.2rem;
+}
+
+
+.botones{
+    margin: 5px;
+}
+
+.btn-flat, .btn-flat2 {
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+    background-color: rgb(228, 228, 228) !important;
+    color: rgb(34, 34, 34)!important;
+}
+
+.btn-flat:hover, .btn-flat2:hover  {
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+    background-color: rgb(228, 228, 228) !important;
+    color: rgb(34, 34, 34)!important;
+}
+
+.btn-flat2 {
+    margin-top: 2rem;
+}
+
+.btn-xxl {
+    padding: 0.3rem 0.3rem!important;
+    font-size: 0.8rem!important;
+}
+
+.perfilImage{
+    width:60px !important;
+    height:60px !important;
+}
+
+.form-control::placeholder {
+    color: rgba(189, 195, 199, 1.0) !important;
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.form-control,
+.form-select {
+    background-color: #f9f9f9!important;
+    color:rgb(79, 105, 255)!important;
+    font-size: 0.8rem !important;
+    font-style: italic;
+    border: 1px solid #181818!important;
+    appearance: auto !important;
+}
+
+.iconopasswd{
+    background-image: url("../../../public/img/iconos/key_black_24dp.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid #181818!important;
+}
+
+.iconologin{
+    background-image: url("../../../public/img/iconos/person_black_24dp.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid #181818!important;
+}

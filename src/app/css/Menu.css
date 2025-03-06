@@ -1,0 +1,220 @@
+
+/*********** BARRA DE MENU *******/
+
+    .Nav {
+        background: rgb(255, 255, 255) !important;
+        border-radius: 3px;
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .D_cua{
+        display: flex !important;
+        align-items: center;
+        margin-left: .9rem;
+        padding-right: 0.5rem;
+        padding-left: 1rem;
+        height: 40px;
+    }
+
+    .D_cua:hover{
+        background: rgb(228, 228, 228) !important;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .D_cua>a {
+        text-decoration: none !important;
+    }
+
+    .D_sp,
+    #collasible-nav-dropdown {
+        color: rgb(34, 34, 34);
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+        font-size: 0.9rem !important;    
+    }
+
+    .dropdown-menu {
+        background: rgb(255, 255, 255) !important;        
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+        border-color: rgb(255, 255, 255) !important; 
+        font-size: 0.9rem !important;        
+    }
+    .dropdown-item{
+        color: rgb(34, 34, 34) !important; 
+    }
+    .dropdown-item:focus,
+    .dropdown-item:hover{
+        background: rgb(228, 228, 228) !important;
+        color: rgb(34, 34, 34) !important; 
+        font-size: 0.9rem !important;
+    }
+
+
+/***********OFF CANVAS *******/
+    .btn-reorder{
+        cursor: pointer;
+        background: rgb(55, 55, 57, 1) !important;
+        justify-content: flex-end !important;
+    }
+
+    #botonmenuasociado{
+    display:none;
+    }
+
+    #botonmenuasociado:hover{
+        background-color: rgb(24, 24, 24)  !important;
+    }
+
+    @media only screen and (max-width: 992px) {
+        #botonmenuasociado {
+            display:block;
+            align-items: center;
+            margin-left: .2rem;
+            margin-right: .2rem;
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+        }
+    }
+
+    .offcanvaheader{
+        background: rgb(202, 202, 202) !important;  
+    }
+
+    .offcanvaheader>button{
+    background-color:  rgb(202, 202, 202) !important;
+    opacity: 1;
+    margin-left: 1.5rem  !important;;
+    }
+
+    .offcanvaheader>button:hover{        
+        background-color: rgb(107, 107, 107)   !important;
+        opacity: 1;
+        margin-left: 1.5rem  !important;;
+    }
+
+    .offcanvabody{
+        background-color: rgb(55, 55, 57, 1) !important;
+    }
+    .offcanvaimg{
+        font-size: 1.0rem !important;
+        margin: auto;
+    }
+
+/*---[MenuPerfilPersonasTab]---*/
+    .MenuPerfilPersonasTab{
+        position: relative;
+        margin-top: 2.5rem;
+    }
+
+    .MenuPerfilPersonasColizq{
+        background: rgb(227, 233, 238) !important;
+    }
+
+    .mppImage{
+        background-color:rgb(255, 255, 255, 1) !important;
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
+        border: none !important;
+        margin-bottom: 1rem;
+        padding-top: 1rem;
+        margin-left: 1rem;
+    }
+
+    .mppTexto{
+        color: rgba(34, 34, 34, 1.0) !important;
+        font-size: .8rem;;   
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;   
+        justify-content: center; 
+    }
+
+/*---[ ACORDION MENU PERFIL PERSONAS ] ---*/
+
+    .accordion-body{
+        background-color:rgb(255, 255, 255) !important;
+        color: rgba(34, 34, 34, 1.0) !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        border-radius: 0px 0px 3px 3px;
+    }
+
+    .accordion { 
+        --bs-accordion-bg: rgb(255, 255, 255) !important;
+        --bs-accordion-btn-color: var(--bs-body-color) !important;
+        --bs-accordion-border-width: 0 !important;    
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 3px 3px 3px 3px;
+    }
+
+    .collapase{
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
+    }
+
+/* PARA CAMBIAR EL COLOR DE FONDEL DEL BOTON DEL Accordion.Header
+.accordion-header> button{
+     background-color:rgb(43, 76, 32) !important;
+}
+*/
+    .accordion-button { 
+        font-size: 0.8rem !important;
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
+        color: rgba(34, 34, 34, 1.0) !important;
+    }
+    .accordion-button:not(.collapsed) {
+        background: rgb(255, 255, 255) !important;
+        color: rgba(34, 34, 34, 1.0) !important;
+        box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.12)!important;
+    }
+
+    .nav-pills{
+        background-color: rgb(255, 255, 255) !important;
+        font-size: 0.8rem !important;
+        color: rgba(34, 34, 34, 1.0) !important;
+    }
+
+    .nav-link{
+        border-radius: 0px !important;
+        cursor:pointer !important; 
+    }
+
+    .nav-pills .nav-link.active,
+    .nav-pills .show>.nav-link {
+        background-color: rgb(204, 216, 230) !important;
+        font-size: 0.8rem !important;
+        cursor:pointer !important;
+        color: rgba(34, 34, 34, 1.0) !important;
+    }
+
+    .Tabstitulo{
+        color: rgba(34, 34, 34, 1.0) !important;
+    }
+
+    .Tabstitulo:hover{
+        background-color: rgb(204, 216, 230) !important;
+        color: rgb(255, 255, 255) !important;
+    }
+
+    .Tabstitulo:active {
+        color: rgba(236, 240, 241, 1.0) !important;   
+    }
+
+/*-----[ RADIO BOTON TIPO DE PERSONA ]-----*/
+    .radiotipopersona{
+        font-size: 0.7rem;
+        padding-right: 1.2rem ;
+    }
+
+    .RDtipopersona{
+        padding-right: 1.5rem;
+        font-size: 1rem;
+    }
+
+    .fechas{
+        color:red;
+    }
+
