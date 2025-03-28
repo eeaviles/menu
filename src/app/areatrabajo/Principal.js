@@ -2,19 +2,34 @@
 //----[IMPORT FILES]---------------------------------------------------
 import Cabecera from "./Cabecera";
 import Menu from "./Menu";
-//import PrincipalLayouts from "./PrincipalLayouts";
+import PrincipalLayouts from "./PrincipalLayouts";
+import VistaPuntoVenta from "./VistaPuntoVenta/VistaPuntoVenta";
+
 
 //--------------------------------------------------------------
 const Principal = () => {
   //---[ VARIABLES Y CONSTANTES ]
-  const useractivo = JSON.parse(localStorage.getItem("SESIONUSER")) || null;  if (!useractivo) {
+  const useractivo = JSON.parse(sessionStorage.getItem("SESIONUSER")) || null; // Cambiado a sessionStorage 
+  if (!useractivo) {
     return <h2>Home (Espacio protegido: Usuario Autenticado es requerido)</h2>;
   }
 
+  console.log(useractivo.ROL);
+
   return (
     <>
-      <Cabecera />
-      <Menu />
+      {useractivo.ROL === "Usuario" ? (
+        <>
+          <Cabecera />
+          <VistaPuntoVenta />
+        </>
+      ) : (
+        <>
+          <Cabecera />
+          <Menu />
+          <PrincipalLayouts />
+        </>
+      )}
     </>
   );
 

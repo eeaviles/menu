@@ -22,7 +22,8 @@ const Login = () => {
   const { login, logout} = useSelector(loginSelector);
   //-----------------------------------------------------------------------
 
-  const useractivo = JSON.parse(localStorage.getItem("SESIONUSER")) || null;  
+  const useractivo = JSON.parse(sessionStorage.getItem("SESIONUSER")) || null;  
+
   const navigate = useNavigate();
   const [usuarionovalido, setUsuarionovalido] = useState(false);
   const [passwordnovalido, setPasswordnovalido] = useState(false);
@@ -30,7 +31,7 @@ const Login = () => {
   useEffect(() => {
     if (data) {
       if (data.sesionUser) {
-        localStorage.setItem("SESIONUSER", JSON.stringify(data.sesionUser));
+        sessionStorage.setItem("SESIONUSER", JSON.stringify(data.sesionUser));
         setUsuarionovalido(false);
         setPasswordnovalido(false);
         navigate("/areatrabajo");
@@ -40,30 +41,39 @@ const Login = () => {
         //console.log(data.nouser);
         setUsuarionovalido(true);
         setPasswordnovalido(false);
+        setRegistrodatos({
+          ...registrodatos,
+          passwd: "",
+        });
       }
 
       if (data.nopass) {
         //console.log(data.nopass);
         setUsuarionovalido(false);
         setPasswordnovalido(true);
+        setRegistrodatos({
+          ...registrodatos,
+          passwd: "",
+        });
       }
 
       if (data.salir) {
-        localStorage.removeItem("SESIONUSER");
+        sessionStorage.removeItem("SESIONUSER");
         navigate(0);
       }
     }
-  }, [navigate, data]);
+  }, [navigate, data, registrodatos]);
   
   //--[ FUNCIONES ]
 
-  function salir(){  
-      let enviardataApi = {
-        controller: logout.controller,
-        accion: logout.accion,
-      };
-      enviardata(enviardataApi);
-    }
+  function salir(){
+    let enviardataApi = {
+      controller: logout.controller,
+      accion: logout.accion,
+    };
+    enviardata(enviardataApi);
+    sessionStorage.removeItem("SESIONUSER"); // Agregado Elimina la sesión al salir
+  }
 
     function continuar(){
       navigate("/areatrabajo");

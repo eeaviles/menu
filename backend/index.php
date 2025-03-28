@@ -29,11 +29,10 @@ if($_GET){
 }
 
 if($data){ 
-
     if (!isset($_COOKIE['PHPSESSID'])) {  //---[ Verifica sí el usuario ha iniciado sesión ]  
         //echo "DESDE OPCION SEESION FALSE";
         switch ($data['controller']) {         
-            case "UsuariosController"://---[ REGISTRSR UNA NUEVA SESSION ]
+                       case "UsuariosController"://---[ REGISTRSR UNA NUEVA SESSION ]
                $usuarioscontroller = new UsuariosController($db);
                $MensajeSalida = $usuarioscontroller->accion($data);    
             break; 
@@ -52,6 +51,10 @@ if($data){
                 $usuarioscontroller = new UsuariosController($db);
                 $MensajeSalida = $usuarioscontroller->accion($data);                
                 break;
+            case "EmpresasController": 
+                $empresascontroller = new EmpresasController($db);
+                $MensajeSalida = $empresascontroller->accion($data);
+                break;
             case "PersonasController":
                 $personacontroller = new PersonasController($db);
                 $MensajeSalida = $personacontroller->accion($data);  
@@ -60,6 +63,14 @@ if($data){
                 $sucursalescontroller = new SucursalesController($db);
                 $MensajeSalida = $sucursalescontroller->accion($data);
                 break;
+            case "EmpCat019Controller":
+                $empcat019controller = new EmpCat019Controller($db);
+                $MensajeSalida = $empcat019controller->accion($data);
+                break;
+            case "Cat019Controller":
+                $cat019controller = new Cat019Controller($db);
+                $MensajeSalida = $cat019controller->accion($data);
+                break;
             default:
                 $MensajeSalida = "INDEX.PHP PHPSESSID TRUE, EN TODAS LAS OPCIONES EVALUADAS NO SE ENCONTRÓ COINCIDENCIA";
         }
@@ -67,7 +78,7 @@ if($data){
 
 //---[ Salida JSON ]
 //---[ El messaje de salida es elmensaje devuelto através de la función acción de cada clase Controleer ]
-    echo json_encode($MensajeSalida);
+      echo json_encode($MensajeSalida,  JSON_UNESCAPED_UNICODE );
 
 }
 ?>

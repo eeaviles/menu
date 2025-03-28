@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const Cabecera = () => {
   console.log("HOLA DESDE CABECERA");
+   //const useractivo = JSON.parse(sessionStorage.getItem("SESIONUSER")) || null;
   //-----[ EACT-ROUTER-DOM ]
   const navigate = useNavigate();
 
@@ -23,7 +24,7 @@ const Cabecera = () => {
     useEffect(() => {
       if (data) {
         if (data.salir) {
-          localStorage.removeItem("SESIONUSER");
+          sessionStorage.removeItem("SESIONUSER");
           navigate(0);
         }
       }
@@ -38,20 +39,13 @@ const Cabecera = () => {
     enviardata(enviardataApi);
   }
 
-  const useractivo = JSON.parse(localStorage.getItem("SESIONUSER")) || null;
+  const useractivo = JSON.parse(sessionStorage.getItem("SESIONUSER")) || null;
+  console.log(useractivo);
   const foto = "/img/fotos/" + useractivo.FOTO;
 
   return (
     <Navbar collapseOnSelect expand="lg" className="NB_head">
-      <Navbar.Brand className="me-auto" sm={6} md={6}>
-        <img
-          alt=""
-          src={process.env.PUBLIC_URL + "/img/logos/Menu_512x512.png"}
-          width="40"
-          height="40"
-          className="d-inline-block"
-        />
-      </Navbar.Brand>
+      <Navbar.Brand className="me-auto" sm={6} md={6}></Navbar.Brand>
       <div sm={6} md={6}>
         <Image
           alt=""

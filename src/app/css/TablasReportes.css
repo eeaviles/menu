@@ -1,0 +1,122 @@
+/*personas listar*/
+.tablamodo_1{
+    width:100% !important;
+    margin-bottom: 0!important;
+    border: 1px solid #ccd8e6 !important;
+}
+.ColorTablahead_1{ 
+   color: rgb(24, 24, 24);
+   font-size: 0.8rem !important;
+  --bs-table-bg: #ccd8e6;
+}
+.FontTablaFila{ 
+    font-size: 0.8rem !important;
+}
+
+.RoundedTable {
+  border: 1px solid #ccd8e6 !important;
+  margin-top: 2rem !important;
+  border-radius: 5px !important;
+  margin:auto;
+}
+
+.ContBusquedaAgregar{
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content:space-between;  
+}
+
+.BuscarAncho{
+  width: 300px !important;;
+}
+
+.BotonAgregar{
+  padding: 0.5rem;
+  font-size: 0.7rem !important;
+  margin-top: 3rem !important;
+}
+
+.BotonAgregar2 {
+  /*padding: 0.5rem;*/
+  font-size: 0.7rem !important;
+  margin-top: 1.9rem !important;
+}
+.modal{
+  --bs-modal-width: 90%!important;
+  --bs-border-radius-lg: 0.5rem!important;
+  /*--bs-modal-padding: 0.2rem;*/
+}
+
+.Modalcolorbackground{
+    background: rgb(227, 233, 238) !important;
+    --bs-modal-header-padding: 0.5rem 0.5rem !important;
+}
+
+.actualizar:hover{
+  background-color: rgb(116, 172, 255);
+}
+
+/* REPORTES PDF TABLA DETALLE ORDEN DE COMPRA */
+.T_divL_OrdComprapdf {
+  margin-top: 1rem;
+  padding: 0.7rem;
+  width: 100% !important;
+  margin-left: 10px !important;
+}
+
+.T_divR_OrdComprapdf {
+  margin-top: 1rem;
+  padding: 0.7rem;
+  width: 100% !important;
+  margin-right: 10px !important;
+}
+
+.T_OrdComprapdf {
+  width: 100%;
+  margin-bottom: 0;
+  
+}
+
+.T_OrdComprapdf tbody, td, tfoot, th, thead, tr{
+  border-style: none !important;
+  font-size: 0.7rem;
+}
+
+.T1_OrdComprapdfdivc1{
+  width: 30%;
+  text-align: left;
+  
+}
+.T1_OrdComprapdfdivc2 {
+  width: 35%;
+  text-align: center;
+  line-height: 60px;
+}
+.T1_OrdComprapdfdivc3 { 
+  /*AccionsDetallesInventario.js */
+  text-align: "center";
+  width: 20%;
+  text-align: center;
+  line-height: 60px;
+}
+.T_OrdComprapdfdivc1{
+  width: 30%;
+}
+.T_OrdComprapdfdivc11 {
+  width: 70%;
+}
+.T_OrdComprapdfdivc2 {
+  width: 5%;
+}
+
+.T_padding>:not(caption)>*>*{
+  padding: .1rem .1rem !important;
+}
+
+/*
+tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: none !important;
+    border-width: 0;
+}
+*/

@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 export const principalSlice = createSlice({
   name: "principal",
   initialState: {
-    menuopcion: null,
+    menuopcion: "", //VISTA DE TRABAJO OCULTA, NO HAY VISTA POR DEFECTO AL INICIO
     perIDPselec: null, //utilizado en MenuPersona
-    IDPEmpresaSelec: null, //utilizado en MenuEmpresa
+    IDPEmpresaSelec: "", //utilizado en MenuEmpresa
     DATOS: null,
   },
 
@@ -49,8 +49,7 @@ export const principalSlice = createSlice({
     },
   },
 
-  extraReducers: (builder) => {  },
-
+  extraReducers: (builder) => {},
 });
 
 export const principalSelector = (state) => state.principal;

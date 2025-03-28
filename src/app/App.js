@@ -12,7 +12,8 @@ import Pag404 from "./pages/Pag404";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
 const PrivateRoute = () => {
-  const useractivo = JSON.parse(localStorage.getItem("SESIONUSER")) || null;
+  //const useractivo = JSON.parse(localStorage.getItem("SESIONUSER")) || null;
+  const useractivo = JSON.parse(sessionStorage.getItem("SESIONUSER")) || null; // Cambiado a sessionStorage
   if (!useractivo) {
     return <Navigate to="/" replace />;
   }

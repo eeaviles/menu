@@ -1,0 +1,103 @@
+/*-----[ MENU IZQUIERDA VISTA DE USUARIO ]---------------------------*/
+
+/* PALETA DE COLORES CSS */
+  
+  /* CSS Variables */
+  :root {
+    --color-1: rgb(227, 233, 238, 1);
+    --color-1: rgb(255, 255, 255, 1);
+    --color-2: rgb(182, 200, 216, 1);
+    --color-3: rgb(120, 180, 217, 1);
+    --color-4: rgb(59, 153, 216, 1);
+    --color-5: rgb(0, 116, 179, 1);
+  }
+
+/* BACGROUND COLOR 4  */
+    .mppImage2{
+        background-color: var(--color-1)!important;
+        box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1) !important;
+        margin-left: 3rem;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+        border-radius: 0.5rem!important;   
+        width: 120px!important;       
+    }
+
+    .nav-pills{
+        background-color: var(--color-1) !important;
+        font-size: 0.8rem !important;
+        color: rgba(34, 34, 34, 1.0) !important;
+    }
+
+    .nav-link2 {
+        background-color: var(--color-1) !important;
+        border-radius: 5px !important;
+        cursor: pointer !important;
+    }
+
+/*-----------------------*/
+
+
+/*---[ GRADIENTES ]---*/
+    .nav-pills .nav-link.active,
+    .nav-pills .show>.nav-link {        
+        /*background: linear-gradient(to bottom, #5aa4f8, #a1c9fd )!important;*/
+        background-color: var(--color-3) !important;/*- Color cuanoo el mouse selecciona algo mas de la pantalla-*/
+        border-radius: 5px!important;
+        font-size: 0.8rem !important;
+        cursor:pointer !important;
+        /*color: rgba(34, 34, 34, 1.0) !important;*/
+        color: rgb(255, 255, 255) !important;
+    }
+
+    .Tabstitulo_catcomida:hover { 
+        background-color: var(--color-2) !important;
+        color: rgb(255, 255, 255) !important;
+        border-radius: 5px !important;
+    }
+
+    .Tabstitulo_catcomida:active {
+        background-color: unset !important;
+        color: unset !important;
+        border-radius: unset !important;          
+    }
+
+    .Tabstitulo_catcomida:focus {
+        border-radius: 5px!important;
+        background-color: var(--color-3) !important;
+    }
+
+
+/*-----------------------------*/
+
+.Tabstitulo_catcomida.nav-link2:active {
+    background-color: transparent !important; /* Evita que el estilo :active interfiera */
+  }
+  
+  .selected {
+    background-color: #007bff !important; /* Fondo azul para el seleccionado */
+    color: white !important; /* Texto blanco para el seleccionado */
+    border-radius: 5px !important; /* Borde redondeado */
+  }
+
+  .centrar_nav{        
+        border-radius: 5px;    
+        --bs-nav-link-padding-x: 0rem !important;
+        --bs-nav-link-padding-y: 0.5rem !important;           
+    }
+
+    .nav-link{   
+        border-radius: 0px !important;
+        cursor:pointer !important; 
+    }
+
+    .Tabstitulo_catcomida {
+        color: rgba(34, 34, 34, 1.0) !important;
+    }
+
+    .textoCategorias{
+        text-align: center;
+    }
+
+
+

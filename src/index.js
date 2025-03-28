@@ -12,11 +12,15 @@
 
 
 //---[CARGA DE CSS ]-------------------------------------------------
-  import "bootstrap/dist/css/bootstrap.min.css";
-  import "./app/css/index.css";
+  import "bootstrap/dist/css/bootstrap.min.css";  
   import "./app/css/App.css";
+  import "./app/css/Areatrabajo.css";
+  import "./app/css/index.css";
+  import "./app/css/Login.css";
+  import "./app/css/MenuEmpresa.css";
   import "./app/css/principal.css";
-  import "./app/css/Menu.css";
+  import "./app/css/TablasReportes.css";
+  import "./app/css/Tabs.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
