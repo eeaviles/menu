@@ -1,12 +1,12 @@
 import React from 'react';
 import { Form, Row, Col } from "react-bootstrap";
 
-export const FiltroGlobal = ({filter, setFilter}) => {
+export const FiltroGlobal = ({filter, setFilter, tex}) => {
      return (
        <div>
          <Row className="ATBJformfila">
            <Col className="filtrobusqueda">
-             <Form.Group className="BuscarAncho" controlId="buscarTabla">
+             <Form.Group className="BuscarAncho" controlId={'buscarTabla_'+tex}>
                <Form.Label className="ATBJformLabel">Búscar en toda la Tabla:</Form.Label>
                <Form.Control
                  size="sm"

@@ -3,8 +3,6 @@
 import Cabecera from "./Cabecera";
 import Menu from "./Menu";
 import PrincipalLayouts from "./PrincipalLayouts";
-import VistaPuntoVenta from "./VistaPuntoVenta/VistaPuntoVenta";
-
 
 //--------------------------------------------------------------
 const Principal = () => {
@@ -21,7 +19,8 @@ const Principal = () => {
       {useractivo.ROL === "Usuario" ? (
         <>
           <Cabecera />
-          <VistaPuntoVenta />
+          <Menu />
+          <PrincipalLayouts />
         </>
       ) : (
         <>

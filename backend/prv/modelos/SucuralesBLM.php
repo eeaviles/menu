@@ -218,6 +218,7 @@ class Sucursales {
         }
     }
 
+    //---[ FUNCIONAL MENU: AccionesSucursales.js ]---
     public function listarsucursalesxid(){      
         $TokenArray = array(':IDEMP'=>$this->id_empresa);             
         try{      
@@ -242,17 +243,17 @@ class Sucursales {
         } catch (Exception $e) {
             echo $e->getMessage();
         }  
-    } //FUNCIONAL PARA EditarEmpleados.js
+    } 
 
-
-//--------------------------------------------------------
-
-
-    public function leer() {
+    //---[ FUNCIONAL MENU: AreasSucursales.js ]---
+    public function listarsucursalesparaformulario() {
         try {
-            $query = "SELECT * FROM sucursales";
+            $query = "SELECT id_sucursal AS IDSUC, vc_nombresucursal AS NSUC 
+            FROM menu.sucursales
+            WHERE id_empresa = :id";
+            $params = [':id' => $this->id_empresa];
             $stmt = $this->conn->prepare($query);
-            $stmt->execute();
+            $stmt->execute($params);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
@@ -260,7 +261,7 @@ class Sucursales {
         }
     }
 
-
+//--------------------------------------------------------
 
 
 

@@ -1,16 +1,13 @@
-import { React, useEffect, useState, useRef } from "react";
+import { React, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import toast, { Toaster } from "react-hot-toast";
 
 //-----[REDUX TOOLKIT]-----
 import { useEnvrempMutation } from "../../redux/servicio/GenericApi.js";
-import { useSelector } from "react-redux";
-import { principalSelector } from "../../redux/slices/PrincipalSlice.js";
 
 //----[CATALOGO]----
 import Catalogos  from "../../admin/catalogos/Catalogos.js";
-
 
 //---[ COMPONENETE SELECT INPUT ]---------------------------------
 const SelectComp = ({register,cambiosForm,NAME,ObtOpciones,ObtOpcioneSuccess,LABEL,FILTRODEPARTAMENTO}) => { //VERIFICAR SI ESTA EN USO   
@@ -113,7 +110,7 @@ const AgregarEmpresas = () => {
   const [filtroDepartamento, SetFiltroDepartamento] = useState(null);
 
   //---[ REDUX ]---
-  const [enviardata, { data, isSuccess }] = useEnvrempMutation();
+  const [enviardata] = useEnvrempMutation();
 
   const onSubmit = (formdata, e) => {
     console.log('Por aqui');

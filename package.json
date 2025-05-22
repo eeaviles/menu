@@ -1,6 +1,6 @@
 {
   "name": "menu",
-  "version": "0.1.0",
+  "version": "0.1.0", 
   "homepage": "http://localhost/menu/build/",
   "private": true,
   "dependencies": {

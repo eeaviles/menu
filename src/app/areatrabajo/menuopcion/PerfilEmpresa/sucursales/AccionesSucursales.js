@@ -7,6 +7,7 @@ import {useEnvsucursalesMutation,} from "../../../../redux/servicio/GenericApi";
 
 //----[CATALOGO]----
 import  Catalogos  from "../../../../admin/catalogos/Catalogos.js";
+
 const AccionesSucursales = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
   //---[CONSTANTES FORMULARIO]
   const [registrodatos, setRegistrodatos] = useState([]);
@@ -279,100 +280,100 @@ const AccionesSucursales = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
     );
 };
 
-  //---[COMPONENETE SELECT INPUT]---------------------------------
-    const SelectComp = ({
-      inputvalue,
-      cambiosForm,
-      NAME,
-      ObtOpciones,
-      ObtOpcioneSuccess,
-      LABEL,
-      FILTRODEPARTAMENTO,
-    }) => {
-      let temp4 = "";
-      let arrayOpciones = useRef([]);
-      let returnObject = [];
-      let filterarray = [];
+//---[COMPONENETE SELECT INPUT]---------------------------------
+  const SelectComp = ({
+    inputvalue,
+    cambiosForm,
+    NAME,
+    ObtOpciones,
+    ObtOpcioneSuccess,
+    LABEL,
+    FILTRODEPARTAMENTO,
+  }) => {
+    let temp4 = "";
+    let arrayOpciones = useRef([]);
+    let returnObject = [];
+    let filterarray = [];
 
-      if (ObtOpcioneSuccess) {
-        switch (NAME) {
-          case "IDCAT20":
-            arrayOpciones.current = ObtOpciones.map(function (reg) {
+    if (ObtOpcioneSuccess) {
+      switch (NAME) {
+        case "IDCAT20":
+          arrayOpciones.current = ObtOpciones.map(function (reg) {
+            returnObject = {
+              ID: reg["id"],
+              NOMBRE: reg["Valores"],
+            };
+            return returnObject;
+          });
+          filterarray = arrayOpciones.current;
+          break;
+        case "IDCAT9":
+          arrayOpciones.current = ObtOpciones.map(function (reg) {
+            returnObject = {
+              ID: reg["id"],
+              NOMBRE: reg["Valores"],
+            };
+            return returnObject;
+          });
+          filterarray = arrayOpciones.current;
+          break;
+        case "IDCAT12":
+          arrayOpciones.current = ObtOpciones.map(function (reg) {
+            returnObject = {
+              ID: reg["id"],
+              NOMBRE: reg["Valores"],
+            };
+            return returnObject;
+          });
+          filterarray = arrayOpciones.current;
+          break;
+        case "IDCAT13":
+          arrayOpciones.current = ObtOpciones.map(function (reg) {
               returnObject = {
-                ID: reg["id"],
-                NOMBRE: reg["Valores"],
-              };
-              return returnObject;
-            });
-            filterarray = arrayOpciones.current;
-            break;
-          case "IDCAT9":
-            arrayOpciones.current = ObtOpciones.map(function (reg) {
-              returnObject = {
-                ID: reg["id"],
-                NOMBRE: reg["Valores"],
-              };
-              return returnObject;
-            });
-            filterarray = arrayOpciones.current;
-            break;
-          case "IDCAT12":
-            arrayOpciones.current = ObtOpciones.map(function (reg) {
-              returnObject = {
-                ID: reg["id"],
-                NOMBRE: reg["Valores"],
-              };
-              return returnObject;
-            });
-            filterarray = arrayOpciones.current;
-            break;
-          case "IDCAT13":
-            arrayOpciones.current = ObtOpciones.map(function (reg) {
-                returnObject = {
-                CODEDEPAR: reg["Departamento"],
-                ID: reg["id"],
-                NOMBRE: reg["Valores"],
-              };
-              return returnObject;
-            });
+              CODEDEPAR: reg["Departamento"],
+              ID: reg["id"],
+              NOMBRE: reg["Valores"],
+            };
+            return returnObject;
+          });
 
-            if (FILTRODEPARTAMENTO) {
-              console.log(FILTRODEPARTAMENTO);
-              filterarray = arrayOpciones.current.filter(
-                (e) => e.CODEDEPAR === FILTRODEPARTAMENTO
-              );
-            } else {
-              filterarray = arrayOpciones.current;
-            }
-            //console.log(filterarray);
-            break;
-          default:
-        }
+          if (FILTRODEPARTAMENTO) {
+            console.log(FILTRODEPARTAMENTO);
+            filterarray = arrayOpciones.current.filter(
+              (e) => e.CODEDEPAR === FILTRODEPARTAMENTO
+            );
+          } else {
+            filterarray = arrayOpciones.current;
+          }
+          //console.log(filterarray);
+          break;
+        default:
       }
+    }
 
-      return (
-        <Form.Group controlId={NAME}>
-          <Form.Label className="ATBJformLabel">{LABEL}</Form.Label>
-          <Form.Control
-            required
-            as="select"
-            name={NAME}
-            className="ATBJFormInput"
-            value={(() => {
-              temp4 = inputvalue(NAME);
-              return temp4;
-            })()}
-            onChange={(e) => {
-              cambiosForm(e);
-            }}
-          >
-            <option value="" defaultValue> Seleccionar </option>
-            {filterarray.map((option, i) => (
-              <option key={i} value={option.ID}> {option.NOMBRE} </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
-      );
-    };
+    return (
+      <Form.Group controlId={NAME}>
+        <Form.Label className="ATBJformLabel">{LABEL}</Form.Label>
+        <Form.Control
+          required
+          as="select"
+          name={NAME}
+          className="ATBJFormInput"
+          value={(() => {
+            temp4 = inputvalue(NAME);
+            return temp4;
+          })()}
+          onChange={(e) => {
+            cambiosForm(e);
+          }}
+        >
+          <option value="" defaultValue> Seleccionar </option>
+          {filterarray.map((option, i) => (
+            <option key={i} value={option.ID}> {option.NOMBRE} </option>
+          ))}
+        </Form.Control>
+      </Form.Group>
+    );
+  };
 
 export default AccionesSucursales;

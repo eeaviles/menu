@@ -2,33 +2,24 @@ import { React } from "react";
 //-----[ REDUX TOOLKIT IMPORT ]-----
 import { useSelector } from "react-redux";
 import { principalSelector } from "../redux/slices/PrincipalSlice";
-//-----[ CARGAR ARCHIVOS ]-----
+
+//-----[ CARGAR ARCHIVOS PARA ADMINISTARCIÓN ]-----
 import Home from "./menuopcion/Home";
 //---[PERFILES]
 import VistaPrincipalEmpresa from "./menuopcion/PerfilEmpresa/VistaPrincipalEmpresa";
 //---[Empresas]
 import AgregarEmpresas from "./menuopcion/AgregarClientePorveedor";
-//import ListarEmpresas from "./menu/ListarEmpresas";
 
-/*
-//---[Personas]
-import AgregarPersonaNatural from "./menu/AgregarPersonaNatural";
-import ListarUsuarios from "./menu/ListarUsuarios";
-import ListarPersonas from "./menu/ListarPersonas";
-
-//---[Ventas]
-import MostrarVentas from "./menu/ventas/MostrarVentas";
-import ListarDTE from "./menu/Dte/ListarDTE";
-
-//---[PERFILES]
-import MenuPersona from "./menuLateralPersona/MenuPersona";
-import MenuEmpresa from "./menuLateralEmpresa/MenuEmpresa";
-*/
-
+//-----[CARGAR ARCHIVOS PARA PUNTO DE VENTAS]
+import PuntoVistaVenta from "./VistaPuntoVenta/VistaPuntoVenta";
+import MenuCrearMenu from "./VistaPuntoVenta/MenuCrearMenu";
+import ReporteOrdenes from "./VistaPuntoVenta/ReporteOrdenes";
+import ListadoMenus from "./VistaPuntoVenta/ListadoMenus";
 
 export default function PrincipalLayouts() {//console.log("DESDE PRINCIPAL LAYOUT");
   //---[REDUX TOOLKIT]
   const { menuopcion } = useSelector(principalSelector);  
+  console.log ("menuopcion", menuopcion);
 
   return (
     <>
@@ -37,21 +28,10 @@ export default function PrincipalLayouts() {//console.log("DESDE PRINCIPAL LAYOU
           Home: <Home />,
           VistaPrincipalEmpresa: <VistaPrincipalEmpresa />,
           AgregarEmpresas: <AgregarEmpresas />,
-          /*
-          AgregarPersonaNatural: <AgregarPersonaNatural />,
-          ListarPersonas:  <ListarPersonas />,
-          ListarUsuarios:  <ListarUsuarios />,
-          ListarEmpleados: <ListarEmpleados />,
-          MenuPersona: <MenuPersona />,          
-          ListarEmpresas: <ListarEmpresas />,
-          MenuEmpresa: <MenuEmpresa />,          
-          ListarOrdenCompra: <ListarOrdenCompra />,
-          IngresoOrdCompra: <IngresoOrdCompra />,
-          MostrarInventario: <MostrarInventario />,
-          RegistrarInventario: <RegistrarInventario />,
-          MostrarVentas: <MostrarVentas />,
-          ListarDte:<ListarDTE />, 
-*/
+          PuntoVistaVenta: <PuntoVistaVenta />,
+          MenuCrearMenu: <MenuCrearMenu/>,
+          ReporteOrdenes: <ReporteOrdenes />,
+          ListadoMenus: <ListadoMenus />,
         }[menuopcion]
       }
     </>

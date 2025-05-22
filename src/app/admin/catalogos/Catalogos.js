@@ -55,8 +55,8 @@ const cat007 = [
 ];
 
 //---[Tipo de establecimiento]
+//  { id: 187, Codigo: "9300", Valores: "EL SALVADOR" },
 const cat009 = [
-  { id: 187, Codigo: "9300", Valores: "EL SALVADOR" },
   { id: 1, Codigo: "01", Valores: "Sucursal / Agencia" },
   { id: 2, Codigo: "02", Valores: "Casa matriz" },
   { id: 3, Codigo: "04", Valores: "Bodega" },

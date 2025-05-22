@@ -11,11 +11,8 @@ import { useAuthLoginMutation } from "../redux/servicio/apiLogin";
 import { useNavigate } from "react-router-dom";
 
 const Cabecera = () => {
-  console.log("HOLA DESDE CABECERA");
-   //const useractivo = JSON.parse(sessionStorage.getItem("SESIONUSER")) || null;
   //-----[ EACT-ROUTER-DOM ]
   const navigate = useNavigate();
-
   //-----[ REDUX ]
   const [enviardata, { data }] = useAuthLoginMutation();
   const { logout } = useSelector(loginSelector);
@@ -40,35 +37,16 @@ const Cabecera = () => {
   }
 
   const useractivo = JSON.parse(sessionStorage.getItem("SESIONUSER")) || null;
-  console.log(useractivo);
   const foto = "/img/fotos/" + useractivo.FOTO;
 
   return (
     <Navbar collapseOnSelect expand="lg" className="NB_head">
       <Navbar.Brand className="me-auto" sm={6} md={6}></Navbar.Brand>
       <div sm={6} md={6}>
-        <Image
-          alt=""
-          className="fotocabecera"
-          src={process.env.PUBLIC_URL + foto}
-          width="30"
-          height="30"
-          roundedCircle
-        />
-        <Button variant="cabecera NB_text" size="xxl" type="button">
-          Usuario:{" " + useractivo.USERNAME}{" "}
-        </Button>
-        <Button variant="cabecera NB_text" size="xxl" type="button">
-          Rol:{" " + useractivo.ROL}{" "}
-        </Button>
-        <Button
-          variant="flat NB_text"
-          size="xxl"
-          type="button"
-          onClick={() => salir()}
-        >
-          Salir
-        </Button>
+        <Image alt="" className="fotocabecera" src={process.env.PUBLIC_URL + foto} width="30" height="30" roundedCircle  />
+        <Button variant="cabecera NB_text" size="xxl" type="button"> Usuario:{" " + useractivo.USERNAME}</Button>
+        <Button variant="cabecera NB_text" size="xxl" type="button">Rol:{" " + useractivo.ROL}</Button>        
+        <Button variant="flat NB_text"  size="xxl" type="button" onClick={() => salir()} > Salir </Button>
       </div>
     </Navbar>
   );

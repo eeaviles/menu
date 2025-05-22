@@ -1,3 +1,5 @@
+
+
 //---[CARGA DE REACT ]-----------------------------------------------------
  import React from "react";
  import ReactDOM from 'react-dom/client'; 
@@ -21,6 +23,13 @@
   import "./app/css/principal.css";
   import "./app/css/TablasReportes.css";
   import "./app/css/Tabs.css";
+
+/*
+const deleteCookie = (cookieName) => {
+  document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+};
+deleteCookie("PHPSESSID");
+*/
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

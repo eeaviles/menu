@@ -1,0 +1,9 @@
+.nav-item{
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-bottom: 0.2rem !important;
+}
+.nav-item >a{
+    border-radius: 0.3rem !important;
+    color:black !important;
+}

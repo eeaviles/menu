@@ -1,13 +1,36 @@
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+
+//--------------------------------------------------
+
+// Determinar si estamos en local o en el servidor
+const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+// Configurar la baseUrl dinámicamente
+const baseUrl = isLocalhost
+  ? "http://localhost/menu/backend/index.php" // Ruta local
+  : "https://www.cafegarzan.com/menu/backend/index.php"; // Ruta servidor
+
+//---------------------------------------------------
+
 
 // Crear la API
 export const LoginApi = createApi({
   reducerPath: "loginapi", // Nombre en el store
+  /*
+    baseQuery: fetchBaseQuery({
+      //baseUrl: "http://localhost/menu/backend/index.php", //Ruta local
+      baseUrl: "https://www.cafegarzan.com/menu/backend/index.php", //Ruta servidor
+    }),
+  */
 
+  //---------------------------------------------
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost/menu/backend/index.php",
+    baseUrl, // Usar la baseUrl dinámica
   }),
+
+  //---------------------------------------------
+
 
   //-----[TAGS]--------------------------------------------------------------
   tagTypes: ["Post"], // Definir los tipos de tags

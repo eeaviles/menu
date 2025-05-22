@@ -1,33 +1,40 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+//-------------------------------------------------
+
+// Determinar si estamos en local o en el servidor
+const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+// Configurar la baseUrl dinámicamente
+const baseUrl = isLocalhost
+  ? "http://localhost/menu/backend/index.php" // Ruta local
+  : "https://www.cafegarzan.com/menu/backend/index.php"; // Ruta servidor
+
+//------------------------------------------------
+
 export const GenericApi = createApi({
   reducerPath: "genericapi",
+
+//---------------------------------------------------
+
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost/menu/backend/index.php",
-  }), //---[PASO 1]
-  //keepUnusedDataFor: 60,
+    baseUrl, // Usar la baseUrl dinámica
+  }),
+  
+//---------------------------------------------------
+
   refetchOnMountOrArgChange: true,
-  //refetchOnFocus: true,
-  //refetchOnReconnect: true,
-  tagTypes: [
-    "Personas",
+
+  tagTypes: [  
     "Empresas",
     "EmpresasN",
     "Areas",
     "Sucursales",
     "puestostrabajo",
-    "Marcas",
     "Categorias",
     "Productos",
-    "Proveedores",
-    "OrdenesCompra",
     "EmpresasContactos",
-    "DetalleCompra",
-    "Inventario",
     "Clientes",
-    "Ventas",
-    "DetalleVentas",
-    "Documentos",
     "TipoEstablecimiento",
     "Departamento",
     "Municipio",
@@ -35,47 +42,23 @@ export const GenericApi = createApi({
     "Emp_Cat019",
     "Cat019",
     "Cat015",
-    "EmpresaImpuestos",
-    "Dte",
-  ],
+    //----[UTILIZADOS EN PORY MENU]
+    "ORDENES",
+    "MENUS",
+    "MENUSDETALLES",
+    "DETALLESORDENES",
+    "AREAS",
+    "SUCURSALES",
+    "PUESTOSTRABAJOS",
+    "PERSONAS",
+    "USUARIOS",
+    "ROLES",
+    "CATEGORIAS",
+    "PRODUCTOS"
+    ],
 
   endpoints: (build) => ({
-    //-----[ GET-PERSONAS-USUARIOS ]
-    obtener: build.query({
-      query: (cam) => ({
-        url: `index.php?controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Personas"],
-    }),
-
-    //GET-PERSONAS-USUARIOS XID
-    obtpersonaxid: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Personas"],
-    }),
-
-    //POST-PERSONAS-USUARIOS
-    enviar: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
-      }),
-      invalidatesTags: ["Personas"],
-    }),
-
-    //---[ EMPRESAS ]-------------------------------
+   //---[ EMPRESAS ]-------------------------------
     //GET-EMPRESAS
     obtemp: build.query({
       query: (cam) => ({
@@ -131,45 +114,6 @@ export const GenericApi = createApi({
       invalidatesTags: ["Empresas"],
     }),
 
-    //---[ AREAS ]
-    //POST-AREAS
-    envareas: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
-      }),
-      invalidatesTags: ["Areas"],
-    }),
-    //GET-AREAS
-    obtareas: build.query({
-      query: (cam) => ({
-        url: `index.php?controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Areas"],
-    }),
-
-    //---[ SUCURSALES ]
-    //---[ GET-SUCURSALES ]---- VERIFICAR: SOLAMENTE EL QUERY QUE LLEVA ID PARA TODOS LOS GET
-
-    //----[MODULO MENU ]-----------------------------------------------------------
-    obtsucursales: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Sucursales"],
-    }),
-    //------------------------------------------------------------------------------
-    
     obtsucursalesxid: build.query({
       query: (cam) => ({
         url: `index.php?controller=${cam.controller}&accion=${cam.accion}`,
@@ -179,8 +123,7 @@ export const GenericApi = createApi({
       providesTags: ["Sucursales"],
     }),
     
-
-    //---[ POST-SUCURSALES ]
+  //---[ POST-SUCURSALES ]
     envsucursales: build.mutation({
       query: (paquete) => ({
         headers: {
@@ -193,123 +136,6 @@ export const GenericApi = createApi({
         credentials: "include",
       }),
       invalidatesTags: ["Sucursales"],
-    }),
-
-    //---[ PUESTOSTRABAJOS ]-----------------------------
-    //---[ GET-PUESTOSTRABAJOS ]
-    obtptbjo: build.query({
-      query: (cam) => ({
-        url: `index.php?controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["puestostrabajo"],
-    }),
-    //---[ POST-PUESTOSTRABAJOS ]
-    envobtptbjo: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
-      }),
-      invalidatesTags: ["puestostrabajo"],
-    }),
-
-    //---[ MARCAS ]--------------------------------------
-    //---[GET-MARCAS]
-    obtmarcasxid: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Marcas"],
-    }),
-    //---[ POST-MARCAS ]
-    envmarca: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
-      }),
-      invalidatesTags: ["Marcas"],
-    }),
-
-    //---[ CATEGORIAS ]-----------------------------------
-    //---[GET-CATEGORIAS]
-    obtcategorias: build.query({
-      query: (cam) => ({
-        url: `index.php?controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Categorias"],
-    }),
-    envcategorias: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
-      }),
-      invalidatesTags: ["Categorias"],
-    }),
-
-    //---[ PRODUCTOS ]------------------------------------
-    //---[GET-PRODUCTOS]
-    obtproductos: build.query({
-      query: (cam) => ({
-        url: `index.php?controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Productos"],
-    }),
-    obtproductosxid: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Productos"],
-    }),
-    //---[ POST-PRODUCTOS ]
-    envproductos: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
-      }),
-      invalidatesTags: ["Productos"],
-    }),
-    //---[ POST-PRODUCTOS--- CONSIDERANDO NO-JSON ]
-    envproductosform: build.mutation({
-      query: (paquete) => ({
-        url: "index.php",
-        method: "POST",
-        body: paquete,
-        credentials: "include",
-      }),
-      invalidatesTags: ["Productos", "Inventario"],
     }),
 
     //---[PROVEEDORES]-------------------------------------
@@ -337,31 +163,6 @@ export const GenericApi = createApi({
       invalidatesTags: ["Proveedores"],
     }),
 
-    //---[OREDENES COMPRA]----------------------------------
-    //---[GET-OREDENES COMPRA]------
-    obtordenescompraxid: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["OrdenesCompra"],
-    }),
-    //---[POST-OREDENES COMPRA]
-    envordencompra: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
-      }),
-      invalidatesTags: ["OrdenesCompra"],
-    }),
-
     //---[EMPRESAS CONTACTO]----------------------------------
     //---[GET EMPRESAS CONTACTO]
     obtempcont: build.query({
@@ -373,243 +174,382 @@ export const GenericApi = createApi({
       providesTags: ["EmpresasContactos"],
     }),
 
-    //---[DETALLES COMPRAS]-----------------------------------
-    //---[GET DETALLES COMPRAS]
-    obtdetcomp: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
+//---[ CLIENTES ]------------------------------------------
+//---[ GET-CLIENTES ]
+      obtcliente: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["Clientes"],
       }),
-      providesTags: ["DetalleCompra"],
-    }),
-
-    //---[POST DETALLES COMPRA]
-    envdetcomp: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
+//---[ POST-CLIENTES ]
+      envcliente: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["Clientes"],
       }),
-      invalidatesTags: ["DetalleCompra", "OrdenesCompra"],
-    }),
-
-    //---[INVENTARIO]------------------------------------------
-    obtinventario: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
+//---[ OBTENER-TIPO DE ESTABLECIMEINTOS ]-----------------------------
+      ObTipoEstablecimeinto: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["TipoEstablecimiento"],
       }),
-      providesTags: ["Inventario"],
-    }),
-
-    //---[ CLIENTES ]------------------------------------------
-    //---[ GET-CLIENTES ]
-    obtcliente: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
+//---[ OBTENER DEPARTAMENTOS ]----------------------------------------
+      ObtDepartamento: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["Departamento"],
       }),
-      providesTags: ["Clientes"],
-    }),
-    //---[ POST-CLIENTES ]
-    envcliente: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
+//---[ OBTENERMUNICIPIOS ]--------------------------------------------
+      ObtMunicipio: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["Municipio"],
       }),
-      invalidatesTags: ["Clientes"],
-    }),
-
-    //---[ VENTAS ]------------------------------------------
-    //---[ GET-VENTAS ]
-    Gventas: build.query({
-      //USAR UseQuery
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}&fc`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Ventas", "Dte"],
-    }),
-
-    Obtventas: build.query({
-      //USAR UseLazyqQuery
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}&fc=${cam.fc}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Ventas", "Dte"],
-    }),
-
-    //---[ POST-VENTAS ]
-    Mventas: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
-      }),
-      invalidatesTags: ["Ventas"],
-    }),
-
-    Mventassintags: build.mutation({
-      // OJO: Sin invalidatesTags de cambio
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
-      }),
-    }),
-
-    //---[ DETALLEVENTAS ]------------------------------------------------
-    //---[ GET-VENTAS ]
-    Gdetalleventas: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["DetalleVentas"],
-    }),
-
-    //---[ DOCUMENTOS ]---------------------------------------
-    //---[ GET-DOCUMENTOS ]
-    Gdocumentos: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Documentos"],
-    }),
-    //---[ POST-DOCUMENTOS ]
-    Mdocumentos: build.mutation({
-      query: (paquete) => ({
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        url: "index.php",
-        method: "POST",
-        body: JSON.stringify(paquete),
-        credentials: "include",
-      }),
-      invalidatesTags: ["Documentos"],
-    }),
-    //---[ OBTENER-TIPO DE ESTABLECIMEINTOS ]-----------------------------
-    ObTipoEstablecimeinto: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["TipoEstablecimiento"],
-    }),
-    //---[ OBTENER DEPARTAMENTOS ]----------------------------------------
-    ObtDepartamento: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Departamento"],
-    }),
-    //---[ OBTENERMUNICIPIOS ]--------------------------------------------
-    ObtMunicipio: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Municipio"],
-    }),
     //---[ PUNTO DE VENTAS ]----------------------------------------------
-    ObtPuntoVenta: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
+      ObtPuntoVenta: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["PuntoVenta"],
       }),
-      providesTags: ["PuntoVenta"],
-    }),
-
     //---[ EMPRESA CATEGORIA Emp_Cat019 ]------------------------------------------------
-    ObtEmp_Cat019: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
-      }),
-      providesTags: ["Emp_Cat019"],
-    }),
-    
+      ObtEmp_Cat019: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["Emp_Cat019"],
+      }),    
     //---[ CATEGORIA 019 ]------------------------------------------------
-    ObtCat019: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
+      ObtCat019: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["Cat019"],
       }),
-      providesTags: ["Cat019"],
-    }),
     //---[ CATEGORIA 015 ]------------------------------------------------
-    ObtCat015: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
+      ObtCat015: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["Cat015"],
       }),
-      providesTags: ["Cat015"],
-    }),
-    //---[ Empresaimpuestoscam ]------------------------------------------
-    ObtEmpresaImpuestos: build.query({
-      query: (cam) => ({
-        url: `index.php?controller=${cam.controller}&accion=${cam.accion}`,
-        method: "GET",
-        credentials: "include",
+
+
+
+
+    //----[ UTILIZADAS EN PROYECTO MENU ]-------------------------------------------------------------------------
+
+    //---[ CATEGORIAS ]--------------------------------
+    //---[GET-TODAS LAS CATEGORIAS]
+      obtcategorias: build.query({
+        query: (cam) => ({
+          url: `index.php?controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["CATEGORIAS"],
       }),
-      providesTags: ["EmpresaImpuestos"],
-    }),
-    //---[ DTE ]-----------------------------------------------
-    Dte: build.query({
-      query: (cam) => ({
-        url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}&obj=${cam.obj}`,
-        method: "GET",
-        credentials: "include",
+      envcategorias: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["CATEGORIAS"],
+      }), 
+
+    //---[ ORDENES ]-----------------------------------  
+
+      //---[ GUARDAR ORDENES]-------------------------------
+      ordenes: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["ORDENES"],
+      }),   
+      obtordenes: build.query({
+        query: (cam) => ({
+          url: `index.php?controller=${cam.controller}&accion=${cam.accion}&ID=${cam.ID}&FI=${cam.FI}&FF=${cam.FF}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["ORDENES"],
+      }),   
+      obtdetallesordenes: build.query({
+        query: (cam) => ({
+          url: `index.php?controller=${cam.controller}&accion=${cam.accion}&ID=${cam.ID}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["DETALLESORDENES"],
       }),
-      providesTags: ["Dte"],
-    }),
+    
+    //---[ MENUS ]-----------------------------------  
+
+      //---[ Gaurdar Menús]---------------------------------
+      menus: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["MENUS"],
+      }),
+      obtmenus: build.query({
+        query: (cam) => ({
+          url: `index.php?controller=${cam.controller}&accion=${cam.accion}&ID=${cam.ID}&FI=${cam.FI}&FF=${cam.FF}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["MENUS"],
+      }),  
+
+    //---[ MENUDETALLES ]-----------------------------
+      obtmenudetalle: build.query({
+        query: (cam) => ({
+          url: `index.php?controller=${cam.controller}&accion=${cam.accion}&ID=${cam.ID}&FI=${cam.FI}&FF=${cam.FF}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["MENUS", "MENUSDETALLES"],
+      }),
+      menudetalle: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["MENUSDETALLES"],
+      }),
+
+    //---[ PRODUCTOS]------------------------------
+      obtproductos: build.query({
+        query: (cam) => ({
+          url: `index.php?controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["PRODUCTOS"],
+      }),
+      obtproductosxid: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}&TIPOCAT=${cam.TIPOCAT}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["PRODUCTOS"],
+      }),
+
+      envproductos: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["PRODUCTOS"],
+      }),
+
+      envproductosfile: build.mutation({
+        query: (formData) => ({
+          url: "index.php",
+          method: "POST",
+          body: formData, // Enviar FormData directamente
+          credentials: "include",
+        }),
+        invalidatesTags: ["PRODUCTOS"],
+      }),
+
+    //---[SUCURSALES]----------------------------------
+      obtsucursales: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["SUCURSALES"],
+      }),
+
+    //---[AREAS]---------------------------------------
+      envareas: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["AREAS", "SUCURSALES"],
+      }),
+      obtareas: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}&IDPF=${cam.IDPF}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["AREAS"],
+      }),
+    
+    //---[PUESTOSTRABAJOS]----------------------------------
+      obtptbjo: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}&IDPF=${cam.IDPF}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["PUESTOSTRABAJOS"],
+      }),
+      envobtptbjo: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["PUESTOSTRABAJOS"],
+      }),
+
+    //-----[ PERSONAS ]----------------------------------------
+      obtperonas: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["PERSONAS"],
+      }),        
+      obtpersonasxid: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["PERSONAS"],
+      }),        
+      mutpersonas: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["PERSONAS"],
+      }),
+
+    //---[ USUARIOS ]--------------------------------------------
+      obtusuarios: build.query({
+        query: (cam) => ({
+          url: `index.php?controller=${cam.controller}&accion=${cam.accion}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["USUARIOS"],
+      }),        
+      mutusuarios: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["USUARIOS"],
+      }),
+
+    //---[ ROLES ]----------------------------------------------
+      obtroles: build.query({
+        query: (cam) => ({
+          url: `index.php?ID=${cam.ID}&controller=${cam.controller}&accion=${cam.accion}&IDPF=${cam.IDPF}`,
+          method: "GET",
+          credentials: "include",
+        }),
+        providesTags: ["ROLES"],
+      }),        
+      mutroles: build.mutation({
+        query: (paquete) => ({
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          url: "index.php",
+          method: "POST",
+          body: JSON.stringify(paquete),
+          credentials: "include",
+        }),
+        invalidatesTags: ["ROLES"],
+      }),
   }),
 });
 
 export const {
-  useEnviarMutation,
-  useObtenerQuery,
-  useObtpersonaxidQuery,
   //---[EMPRESAS]
   useObtempQuery,
   useObtempxidQuery,
@@ -617,68 +557,92 @@ export const {
   useObtempprincipalQuery,
   useEnvrempMutation,
 
-//----------------------------------------------------------------
-  
-  //---[AREAS]
-  useObtareasQuery,
-  useEnvareasMutation,
-  //---[SUCURSALES]
-  useObtsucursalesQuery,
-  useEnvsucursalesMutation,
-  //---[PUESTOSTRABAJO]
-  useObtptbjoQuery,
-  useEnvobtptbjoMutation,
-  //---[MARCAS]
-  useObtmarcasxidQuery,
-  useEnvmarcaMutation,
-  //---[CATEGORIAS]
-  useObtcategoriasQuery,
-  useEnvcategoriasMutation,
-  //---[PRODICTOS]
-  useObtproductosQuery,
-  useObtproductosxidQuery,
-  useEnvproductosMutation,
-  useEnvproductosformMutation,
   //---[PROVEEDORES]
   useObtproveedoresxidQuery,
   useEnvproveedoresMutation,
-  //---[ORDENESCOMPRA]
-  useObtordenescompraxidQuery,
-  useEnvordencompraMutation,
+
   //---[EMPRESAS CONTACTOS]
   useObtempcontQuery,
-  //---[DETALLE OMPRAS ]
-  useObtdetcompQuery,
-  useEnvdetcompMutation,
-  //---[ IVENTARIO ]
-  useObtinventarioQuery,
+ 
   //---[ CLIENTES ]
   useObtclienteQuery,
   useEnvclienteMutation,
-  //---[ VENTAS ]
-  useGventasQuery, useLazyObtventasQuery, useMventasMutation,  useMventassintagsMutation,
 
-  //---[ DOCUMENTOS ]
-  useGdocumentosQuery,
-  useMdocumentosMutation,
-  //---[DETALLEVENTAS]
-  useGdetalleventasQuery,
-  //---[TIPO DE ESTABLECIMEINTO CAT9]
-  useObTipoEstablecimeintoQuery,
-  //---[DEPARTAMENTO CAT12]
-  useObtDepartamentoQuery,
-  //---[MUNICIPIO CAT13]
-  useObtMunicipioQuery,
-  //---[PuntoVenta]
-  useObtPuntoVentaQuery,
-  //---[Emp_Cat019]--- utilizada en menu
-  useObtEmp_Cat019Query,
-  //---[CAT019]--- utilizada en menu
-  useObtCat019Query,
-  //---[CAT015]
-  useObtCat015Query,
-  //---[EmpresaImpuestos]
-  useObtEmpresaImpuestosQuery,
-  //---[DTE]
-  useDteQuery,
+
+  //---[UTILIZADOS EN MUNU]----------------------------------------------------
+  
+    //---[TIPO DE ESTABLECIMEINTO CAT9]
+      useObTipoEstablecimeintoQuery,
+
+    //---[DEPARTAMENTO CAT12]
+      useObtDepartamentoQuery,
+
+    //---[MUNICIPIO CAT13]
+      useObtMunicipioQuery,
+
+    //---[PuntoVenta]
+      useObtPuntoVentaQuery,
+
+    //---[Emp_Cat019]--- 
+      useObtEmp_Cat019Query,
+
+    //---[CAT019]--- 
+      useObtCat019Query,
+
+    //---[CATEGORIAS]
+      useObtcategoriasQuery,
+      useEnvcategoriasMutation,
+      useLazyObtcategoriasQuery,
+
+    //---[ ORDENES DE MENU ]
+      useObtordenesQuery,
+      useLazyObtordenesQuery,
+      useOrdenesMutation,
+
+    //---[ MENUS ]
+      useMenusMutation,
+      useObtmenusQuery,
+      useLazyObtmenusQuery,
+
+    //---[MENUDETALLES]
+      useObtmenudetalleQuery,
+      useMenudetalleMutation,
+
+    //---[ DETALLESORDENES ]
+      useObtdetallesordenesQuery,
+
+    //---[SUCURSALES]
+      useObtsucursalesQuery,
+      useEnvsucursalesMutation,
+
+    //---[AREAS]
+      useObtareasQuery,
+      useEnvareasMutation,
+      useLazyObtareasQuery,
+
+    //---[PUESTOSTRABAJO]
+      useObtptbjoQuery,
+      useEnvobtptbjoMutation,
+      useLazyObtptbjoQuery,
+
+    //---[ PERSONAS ]
+      useObtperonasQuery,
+      useObtpersonasxidQuery,
+      useMutpersonasMutation,  
+
+    //---[ USUARIOS ]
+      useObtusuariosQuery,
+      useMutusuariosMutation,
+
+    //---[ ROLES ]
+      useObtrolesQuery, 
+      useLazyObtrolesQuery,
+      useMutrolesMutation,
+    
+    //---[ PRODUCTOS ]
+      useObtproductosQuery,
+      useObtproductosxidQuery,
+      useEnvproductosMutation,
+      useEnvproductosfileMutation,
+
 } = GenericApi;

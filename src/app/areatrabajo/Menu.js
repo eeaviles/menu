@@ -38,18 +38,69 @@ const Menu = () => {
      dispatch(fijarPerfilEmpesa(perfilempresa));
    }, [isSuccess, dataperfilempresa, dispatch, perfilempresa]);
 
-
-
   function selecionMenu(menuelegido) {
     switch (menuelegido) {
-      case "Tecnico":
-        return <></>;
+      case "Usuario":
+        return (
+          <>
+            <div className="D_cua" onClick={() => { dispatch(fijaropcion("PuntoVistaVenta")); handleClose(); }}>
+              <Image src={process.env.PUBLIC_URL + "/img/iconos/home_black_24dp.svg"}
+                width="22" height="22" alt="" />
+              <div className="D_sp">
+                <span> Menú del día</span>
+              </div>
+            </div>
+
+            <div className="D_cua">
+              <Image width="22" height="22" src={ "./img/iconos/description_black_24dp.svg" }/>
+              <NavDropdown title="Menú" id="collasible-nav-dropdown">
+
+                <NavDropdown.Item
+                  onClick={() => {
+                    dispatch(fijaropcion("MenuCrearMenu"));
+                    handleClose();
+                  }}
+                > Crear Menú
+                </NavDropdown.Item>
+                
+                <NavDropdown.Item
+                  onClick={() => {
+                    dispatch(fijaropcion("ListadoMenus"));
+                    handleClose();
+                  }}
+                > Listado de Menús
+                </NavDropdown.Item>
+              
+              </NavDropdown>
+            </div>
+
+            <div className="D_cua">
+              <Image width="22" height="22" src={ "./img/iconos/description_black_24dp.svg" }/>
+              <NavDropdown title="Ordenes" id="collasible-nav-dropdown">
+                <NavDropdown.Item
+                    onClick={() => {
+                      dispatch(fijaropcion("PuntoVistaVenta"));
+                      handleClose();
+                    }}
+                  > Crear una  Orden
+                  </NavDropdown.Item>                
+                  <NavDropdown.Item
+                    onClick={() => {
+                      dispatch(fijaropcion("ReporteOrdenes"));
+                      handleClose();
+                    }}
+                  > Listado de Ordenes
+                  </NavDropdown.Item>
+              </NavDropdown>
+            </div>
+
+          </>
+        );
 
       case "Administrador":
         return (
           <>
-            <div
-              className="D_cua"
+            <div className="D_cua"
               onClick={() => {
                 dispatch(fijaropcion("VistaPrincipalEmpresa"));
                 handleClose();
@@ -67,104 +118,48 @@ const Menu = () => {
             </div>
 
             <div className="D_cua">
-              <Image
-                src={
-                  process.env.PUBLIC_URL +
-                  "/img/iconos/location_city_black_24dp.svg"
-                }
-                width="22"
-                height="22"
-                alt=""
-              />
-              <NavDropdown title="Empresas" id="collasible-nav-dropdown">
+              <Image width="22" height="22" src={ "./img/iconos/description_black_24dp.svg" }/>
+              <NavDropdown title="Menú" id="collasible-nav-dropdown">
+
                 <NavDropdown.Item
                   onClick={() => {
-                    dispatch(fijaropcion("AgregarEmpresas"));
-                    handleClose(); //GUARDAR CANVAS DESPUES DE SELECCIONAR OPCIÓN
+                    dispatch(fijaropcion("MenuCrearMenu"));
+                    handleClose();
                   }}
-                >
-                  Agregar Empresas
+                > Crear Menú
                 </NavDropdown.Item>
+                
                 <NavDropdown.Item
                   onClick={() => {
-                    dispatch(fijaropcion("ListarEmpresas"));
-                    handleClose(); //GUARDAR CANVAS DESPUES DE SELECCIONAR OPCIÓN
+                    dispatch(fijaropcion("ListadoMenus"));
+                    handleClose();
                   }}
-                >
-                  Listar Empresas
+                > Listado de Menús
                 </NavDropdown.Item>
+              
               </NavDropdown>
             </div>
 
             <div className="D_cua">
-              <Image
-                src={
-                  process.env.PUBLIC_URL + "/img/iconos/person_black_24dp.svg"
-                }
-                width="22"
-                height="22"
-                alt=""
-              />
-              <NavDropdown title="Personas" id="collasible-nav-dropdown">
+              <Image width="22" height="22" src={ "./img/iconos/description_black_24dp.svg" }/>
+              <NavDropdown title="Ordenes" id="collasible-nav-dropdown">
                 <NavDropdown.Item
-                  onClick={() => {
-                    dispatch(fijaropcion("AgregarPersonaNatural"));
-                    handleClose();
-                  }}
-                >
-                  Agregar Persona
-                </NavDropdown.Item>
-
-                <NavDropdown.Item
-                  onClick={() => {
-                    dispatch(fijaropcion("ListarPersonas"));
-                    handleClose();
-                  }}
-                >
-                  Listar Personas
-                </NavDropdown.Item>
-
-                <hr />
-                <NavDropdown.Item
-                  onClick={() => {
-                    dispatch(fijaropcion("ListarUsuarios"));
-                    handleClose();
-                  }}
-                >
-                  Listar Usuarios
-                </NavDropdown.Item>
-
-                <NavDropdown.Item
-                  onClick={() => {
-                    dispatch(fijaropcion("ListarEmpleados"));
-                    handleClose();
-                  }}
-                >
-                  Listar Empleados
-                </NavDropdown.Item>
+                    onClick={() => {
+                      dispatch(fijaropcion("PuntoVistaVenta"));
+                      handleClose();
+                    }}
+                  > Crear una  Orden
+                  </NavDropdown.Item>                
+                  <NavDropdown.Item
+                    onClick={() => {
+                      dispatch(fijaropcion("ReporteOrdenes"));
+                      handleClose();
+                    }}
+                  > Listado de Ordenes
+                  </NavDropdown.Item>
               </NavDropdown>
             </div>
 
-            <div className="D_cua">
-              <Image
-                width="22"
-                height="22"
-                src={
-                  process.env.PUBLIC_URL +
-                  "/img/iconos/description_black_24dp.svg"
-                }
-              />
-              <NavDropdown title="Ventas" id="collasible-nav-dropdown">
-                <NavDropdown.Item
-                  onClick={() => {
-                    dispatch(fijaropcion("MostrarVentas"));
-                    handleClose();
-                  }}
-                >
-                  Listar Ventas
-                </NavDropdown.Item>
-              </NavDropdown>
-            </div>
           </>
         );
 
@@ -187,7 +182,7 @@ const Menu = () => {
         </Navbar.Collapse>
 
         <Button id="botonmenuasociado" variant="reorder" onClick={handleShow}>
-          <img src="/img/iconos/reorder.svg" alt="Menu Lateral" title="Menu Lateral" />
+          <img src="./img/iconos/reorder.svg" alt="Menu Lateral" title="Menu Lateral" />
         </Button>
 
       </Navbar>

@@ -211,7 +211,7 @@ import AccionesSucursales from "./AccionesSucursales";
         </Modal>
 
         <div className="ContBusquedaAgregar">
-          <FiltroGlobal filter={globalFilter} setFilter={setGlobalFilter} />
+          <FiltroGlobal filter={globalFilter} setFilter={setGlobalFilter} tex='s'/>
           <div className="BotonAgregar">
             <Button
               variant="flat NB_text"

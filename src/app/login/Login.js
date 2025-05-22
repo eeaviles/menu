@@ -41,20 +41,20 @@ const Login = () => {
         //console.log(data.nouser);
         setUsuarionovalido(true);
         setPasswordnovalido(false);
-        setRegistrodatos({
-          ...registrodatos,
-          passwd: "",
-        });
+        setRegistrodatos((prev) => ({
+          ...prev,
+          passwd: "", // Limpiar el campo passwd
+        }));
       }
 
       if (data.nopass) {
         //console.log(data.nopass);
         setUsuarionovalido(false);
         setPasswordnovalido(true);
-        setRegistrodatos({
-          ...registrodatos,
-          passwd: "",
-        });
+        setRegistrodatos((prev) => ({
+          ...prev,
+          passwd: "", // Limpiar el campo passwd
+        }));
       }
 
       if (data.salir) {
@@ -62,7 +62,7 @@ const Login = () => {
         navigate(0);
       }
     }
-  }, [navigate, data, registrodatos]);
+  }, [navigate, data]);
   
   //--[ FUNCIONES ]
 

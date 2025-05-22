@@ -9,18 +9,21 @@
     --color-2: rgb(182, 200, 216, 1);
     --color-3: rgb(120, 180, 217, 1);
     --color-4: rgb(59, 153, 216, 1);
-    --color-5: rgb(0, 116, 179, 1);
+    --color-5: rgb(0, 116, 179);
+    --color-6: rgb(0, 48, 73, 1);
+    --color-7: rgb(255, 255, 254);
+    --color-8: rgb(252, 248, 0);
   }
 
 /* BACGROUND COLOR 4  */
     .mppImage2{
         background-color: var(--color-1)!important;
         box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1) !important;
-        margin-left: 3rem;
+        margin-left: 1.5rem;
         padding-bottom: 1rem;
         padding-top: 1rem;
         border-radius: 0.5rem!important;   
-        width: 120px!important;       
+        width: 180px!important;       
     }
 
     .nav-pills{
@@ -40,24 +43,22 @@
 
 /*---[ GRADIENTES ]---*/
     .nav-pills .nav-link.active,
-    .nav-pills .show>.nav-link {        
-        /*background: linear-gradient(to bottom, #5aa4f8, #a1c9fd )!important;*/
-        background-color: var(--color-3) !important;/*- Color cuanoo el mouse selecciona algo mas de la pantalla-*/
+    .nav-pills .show>.nav-link {              
+        background-color: var(--color-2) !important;/*- Color cuando el mouse selecciona algo mas de la pantalla-*/
         border-radius: 5px!important;
         font-size: 0.8rem !important;
         cursor:pointer !important;
-        /*color: rgba(34, 34, 34, 1.0) !important;*/
-        color: rgb(255, 255, 255) !important;
+        color: rgba(34, 34, 34, 1.0) !important;      
     }
 
     .Tabstitulo_catcomida:hover { 
-        background-color: var(--color-2) !important;
-        color: rgb(255, 255, 255) !important;
+        background-color: var(--color-) !important;
+        color: rgba(34, 34, 34, 1.0) !important;
         border-radius: 5px !important;
     }
 
     .Tabstitulo_catcomida:active {
-        background-color: unset !important;
+        background-color: var(--color-2)  !important;
         color: unset !important;
         border-radius: unset !important;          
     }
@@ -88,7 +89,7 @@
 
     .nav-link{   
         border-radius: 0px !important;
-        cursor:pointer !important; 
+        cursor:pointer !important;        
     }
 
     .Tabstitulo_catcomida {
@@ -96,8 +97,257 @@
     }
 
     .textoCategorias{
-        text-align: center;
+        text-align: left;
+        color: var(--color-6);
     }
 
 
+/* cardboton*/
 
+.cardproductos,
+.cardproductos2{
+    padding: 10px;
+    height: 'auto';
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;    
+    align-items: center;
+    border-radius: 5px;
+    background: var(--color-2) !important;
+    color: var(--color-6);
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.cardproductos img,
+.cardproductos2 img {
+    width: 50px;
+    height: 50px;
+  }
+
+.cardproductos:hover{ 
+   background: var(--color-3) !important;
+   /*cursor: pointer !important;*/
+}
+.cardproductos2:hover{
+    background: var(--color-3) !important;
+    cursor: pointer !important;
+}
+
+.etinombreproducto{
+   margin-top: 10px;
+   text-align: center; 
+   font-size: 0.8rem;
+   font-weight: bold;   
+}
+
+.etiprecios{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    width: 100%;    
+    font-size: 0.8rem;
+    font-weight: bold;   
+}
+
+.etiprecio-grande-container,
+.etiprecio-pequeno-container {
+  display: flex;
+  flex-direction: column; /* Organiza el precio y la etiqueta en columna */
+  align-items: center; /* Centra los elementos horizontalmente */
+}
+
+.etiprecio-grande,
+.etiprecio-pequeno {
+    font-size: 14px;
+    color: var(--color-6);
+    background: linear-gradient(to top , var(--color-2), var(--color-1));
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 50%;
+    width: 40px; /* Ancho fijo */
+    height: 40px; /* Altura fija */
+    display: flex;     
+    align-items: center; /* Centra verticalmente el texto */
+    justify-content: center; /* Centra horizontalmente el texto */
+    text-align: center; /* Centra el texto */    
+  }  
+
+  .etiprecio-grande:hover,
+  .etiprecio-pequeno:hover{
+    background: linear-gradient(to bottom  , var(--color-7), var(--color-8));
+    cursor: pointer !important;
+   }
+
+  .etiqueta-precio {
+    font-size: 12px; /* Tamaño de fuente más pequeño */
+    color: var(--color-6); /* Color del texto */
+    margin-top: 5px; /* Espaciado entre el precio y la etiqueta */
+    text-align: center; /* Centrar el texto */
+  }
+
+/*---------------------------------------------------------*/
+/* Contenedor principal para igualar la altura de las columnas */
+.row-equal-height {
+    display: flex;
+    flex-wrap: nowrap; /* Evita que las columnas se envuelvan */
+}
+
+/* Asegura que las columnas ocupen la misma altura */
+.col-equal-height {
+    flex: 1; /* Hace que ambas columnas ocupen el mismo espacio */
+    display: flex;
+    flex-direction: column; /* Organiza el contenido verticalmente */
+    justify-content: stretch; /* Asegura que las columnas se estiren */
+    min-height: 100%; /* Asegura que las columnas se expandan al máximo */
+}
+
+/* Proporciones para los componentes Row "a" y Row "b" */
+.row-a {
+    flex: 65; /* 65% de la altura del contenedor padre */
+    padding-left: 0.5rem;
+    padding-right: 1rem;
+    
+}
+
+.row-b {
+    flex: 25; /* 35% de la altura del contenedor padre */
+    padding-left: 0.5rem;
+    padding-right: 1rem;
+}
+
+  
+.row-b2 {
+    flex: 25; /* 35% de la altura del contenedor padre */
+    padding-left: 0.5rem;
+    padding-right: 1rem;
+    padding: 20px; /* Espaciado interno */
+    border: 1px solid #ddd; /* Borde opcional */
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #f9f9f9; /* Fondo claro */
+    width: 100%;  /*Ajustar el ancho */
+    max-width: 500px; /* Ancho máximo */
+}
+
+.div-ancho-uniforme {
+    width: 100%; /* Ocupa todo el ancho del contenedor padre */
+    max-width: 500px; /* Ancho máximo para limitar el tamaño */
+    margin: 10px; /* Espaciado entre los div */
+    padding: 20px; /* Espaciado interno */
+    border: 1px solid #ddd; /* Borde opcional */
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #f9f9f9; /* Fondo claro */
+  }
+
+  .tab-content-uniforme {
+    width: 100%; /* Ocupa todo el ancho del contenedor padre */
+    max-width: 1200px; /* Ancho máximo para limitar el tamaño */
+    margin: 0 auto; /* Centrar horizontalmente */
+    padding: 20px; /* Espaciado interno */
+  }
+
+  .Tab2{
+    max-width: 90%;
+    gap: 20px;    
+ }
+
+ .W-auto{
+    width: auto !important;
+ }
+
+.colorsvg{
+    color: #ffffff !important; 
+}
+
+.colorsvg img {
+    width: 16px; /* Cambia el ancho */
+    height: 16px; /* Cambia la altura */
+}
+
+.linea{
+    background-color: var(--color-2)!important;
+    color:var(--color-6)!important;
+}
+
+.tabla-redondeada {
+    border-radius: 5px; /* Ajusta el valor para redondear más o menos */
+    overflow: hidden; /* Asegura que el contenido no sobresalga de las esquinas redondeadas */
+}
+
+.color_tablabotones {
+    background-color:  var(--color-2)!important;  
+    border: none !important;
+    border-radius: 5px; 
+    padding: 5px 10px; 
+    cursor: pointer; 
+    color:var(--color-6)!important;
+    height: 33px; /* Ajusta la altura del botón */
+    display: flex;
+    align-self: flex-end;
+    /*margin-left: 30px;*/
+    font-size: 0.8rem !important;
+}
+
+.color_tablabotones:hover {
+    background-color:  var(--color-4)!important;  
+}
+
+.etiprecios {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px; /* Espaciado superior */
+  }
+  
+.etiprecio-grande,
+.etiprecio-pequeno {
+font-size: 12px; /* Ajustar tamaño de fuente */
+color: #333; /* Color del texto */
+}
+
+.titulos_MenuCrearMenu{
+    color:var(--color-6)!important;
+    font-weight: bold; /* Texto en negrita */
+    height: 25px;
+    padding: 1rem 2rem 3rem 1rem;
+    line-height: 25px;
+
+}
+
+.actualizarmenu{    
+    border-radius: 5px 5px 5px 5px;
+    background: rgb(255, 255, 255) !important;
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1) !important;
+    padding: 0.5rem !important;
+    min-width: 300px;
+    margin: 0 !important;
+    display: flex;
+    justify-content: center;
+    color:var(--color-6)!important;
+    background-color:  var(--color-2)!important;  
+
+}
+
+.table .fila-borrar {
+    background-color: #dff1ad !important; /* Fondo rojo claro */
+    opacity: 0.8 !important; /* Opacidad reducida */
+    color:var(--color-6)!important;
+  }
+
+  .ticket {
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .ticket-item {
+    margin-bottom: 10px;
+  }
+  
+  .modal-ticket {
+    max-width: 300px !important; /* Ancho aproximado de 80 mm */
+    margin: auto;
+  }
+  
+  .ticket-total {
+    text-align: right; /* Alinear el total a la derecha */
+  }

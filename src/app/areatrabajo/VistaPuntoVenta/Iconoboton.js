@@ -11,7 +11,7 @@ const Iconoboton = ({ nombreimagen }) => {
           className="fotoperfil"
           roundedCircle
           alt="Platos Fuertes"
-          src={process.env.PUBLIC_URL + "/img/iconos/" + nombreimagen}
+          src={"./img/iconos/" + nombreimagen}
         />
       </div>
     </>

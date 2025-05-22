@@ -119,8 +119,7 @@ const AgregarEmpresas = () => {
 
   //---[FUNCIONES]
   useEffect(() => {
-    if (isSuccess) {
-      console.log(data);
+    if (isSuccess) { 
       if (data) {
         toast(data.E, {
           duration: 4000,
@@ -648,12 +647,3 @@ const AgregarEmpresas = () => {
 };
 
 export default AgregarEmpresas;
-
-/*
-  <Form.Control
-    type="hidden"
-    id="custId"
-    name="custId"
-    value="3487"
-  />
-*/

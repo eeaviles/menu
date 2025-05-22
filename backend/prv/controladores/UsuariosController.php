@@ -14,16 +14,22 @@ class UsuariosController {
         switch ($data['accion']) {
             case "login":
                 return $this->Loginin($data);
+            break;
             case "loginout":
                 return $this->LogOut();
-            case "listar":
-                return $this->Listartodos();
-            case "listarxid":
+            break;
+            case "LI":
+                return $this->Listar($data);
+            break;
+            case "LXID":
                 return $this->ListarXid($data);
-            case "agregar":
+            break;
+            case "AG":
                 return $this->Agregar($data);
-            case "actualizar":
+            break;
+            case "AC":
                 return $this->Actualizar($data);
+            break;
             default:
                 return "NO EXISTE LA ACCIÓN SOLICITADA";
         }
@@ -58,47 +64,70 @@ class UsuariosController {
         return $this->objSe->destroy();          
     }
 
+    private function Listar($d) {
+        $resultado = $this->objusers->listar();
+          if ($resultado) {
+            return $resultado;
+        } else {
+            return array("error" => "No se encontraron resultados.");
+        }
+
+    }
+
+    private function Actualizar($d) {        
+        //---[ CREADOS EXTERNAMENTE]
+        $this->objusers->setId_usuario($d['IUSUA']);
+        $this->objusers->setId_persona($d['IDPER']);
+        $this->objusers->setId_rol($d['IROL']);
+        $this->objusers->setV_username($d['NUSER']);
+        $this->objusers->setV_password($d['PASWD']);
+        $this->objusers->setEmail_recup($d['CORREO']);
+        $this->objusers->setC_activo($d['USERACT']);
+        $this->objusers->setT_descripcion($d['DESCRIP']);
+
+        //[ CREADOS POR SISTEMA]
+        $this->objusers->setD_actualizacion(date("Y-m-d"));
+        
+        $resptem = $this->objusers->actualizar();   
+        if($resptem ){
+            $temarray=['E'=>'LOS DATOS SE ACTUALIZARON'];
+            return $temarray;
+        }else{
+            $temarray=['E'=>'HUBO UN PROBLEMA LOS DATOS NO SE ACTUALIZARON'];
+            return $temarray;
+        } 
+    }
+
     private function Agregar($d) {
         //---[ CREADOS EXTERNAMENTE]
-        $this->objusers->setId_persona($d['IDP']);
-        $this->objusers->setId_rol($d['IDR']);
-        $this->objusers->setV_username($d['UNAME']);
-        $this->objusers->setV_password($d['PASSWORD']);
-        $this->objusers->setEmail_recup($d['EMAIL']);
+        $this->objusers->setId_persona($d['IDPER']);
+        $this->objusers->setId_rol($d['IROL']);
+        $this->objusers->setV_username($d['NUSER']);
+        $this->objusers->setV_password($d['PASWD']);
+        $this->objusers->setEmail_recup($d['CORREO']);
+        $this->objusers->setT_descripcion($d['DESCRIP']);
 
         //[ CREADOS POR SISTEMA]
         $this->objusers->setC_activo('S');
         $this->objusers->setD_registro(date("Y-m-d"));
 
         //---[ SOLICTUD ]
-        return $this->objusers->crear();
+        $resptem = $this->objusers->agregar();   
+        if($resptem ){
+            $temarray=['E'=>'LOS DATOS SE ALMACENARON'];
+            return $temarray;
+        }else{
+            $temarray=['E'=>'HUBO UN PROBLEMA LOS DATOS NO SE ALMACENARON'];
+            return $temarray;
+        } 
     }    
+
+//--------------------------------------------
 
     private function Listartodos() {
         return $this->objusers->leer();
     }
 
-    private function ListarXid() {
-        $this->objusers->setId_persona($d['ID']);
-        $this->objusers->setC_activo('S');
-        return $this->objusers->leerUno($d['ID']);
-    }
-
-    private function Actualizar() {
-        //---[ CREADOS EXTERNAMENTE]
-        $this->objusers->setId_usuario($d['IDU']);
-        $this->objusers->setId_persona($d['IDP']);
-        $this->objusers->setId_rol($d['IDR']);
-        $this->objusers->setV_username($d['UNAME']);
-        $this->objusers->setV_password($d['PASSWORD']);
-        $this->objusers->setEmail_recup($d['EMAIL']);
-
-        //[ CREADOS POR SISTEMA]
-        $this->objusers->setD_actualizacion(date("Y-m-d"));
-
-        //---[ SOLICTUD ]
-        return $this->objusers->actualizar();
-    }
 }
 
 ?>
