@@ -111,7 +111,7 @@ const UsuariosAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
         {(actualizar || Array.isArray(ListaPersonas)) ? (
         <div name="todoUsuario" className="container mx-auto">
           <div className="Titulo">{fijartitulo} {ETIQUETA}</div>
-          <Form ref={formRef} className="ATBJform" onSubmit={handleSubmit} method="POST">
+          <Form ref={formRef} className="ATBJform" onSubmit={handleSubmit} method="POST" autocomplete="off">
             {!actualizar && Array.isArray(ListaPersonas) && ( 
               <Row className="ATBJformfila">
                 <Col xs={12} sm={6} md={4} lg={3} xl={3}>
@@ -147,11 +147,11 @@ const UsuariosAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
             <Row className="ATBJformfila">
               <Col xs={12} sm={6} md={4} lg={3} xl={3}>
                 <Form.Group controlId="NUSER">
-                  <Form.Label className="ATBJformLabel">Nombre Usuario:</Form.Label>
+                  <Form.Label className="ATBJformLabel">Nombre de Usuario:</Form.Label>
                   <Form.Control
                     required
                     type="text"
-                    placeholder="Nombre de la Sucursal "
+                    placeholder="Nombre de Uusario"
                     name="NUSER"
                     className="ATBJFormInput"
                     value={registrodatos?.NUSER ? registrodatos?.NUSER: ""}
@@ -182,6 +182,7 @@ const UsuariosAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                       placeholder="Introducir Password"
                       name="PASWD"
                       className="ATBJFormInput"
+                      autocomplete="new-password"
                       value={registrodatos?.PASWD ? registrodatos?.PASWD: ""}
                       onChange={(e) => {
                         setRegistrodatos({
@@ -196,7 +197,7 @@ const UsuariosAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
               </Col>
               <Col xs={12} sm={6} md={4} lg={3} xl={3}>
                 <Form.Group controlId="RPASWD">
-                  <Form.Label className="ATBJformLabel"> Reescribir Nuevo Password: </Form.Label>
+                  <Form.Label className="ATBJformLabel"> Re-escribir Nuevo Password: </Form.Label>
                   <OverlayTrigger
                       show={errorPassword} // Mostrar el tooltip si hay error
                       placement="bottom"
@@ -209,10 +210,11 @@ const UsuariosAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   <Form.Control  
                     required={!actualizar} // Solo es requerido si actualizar es false           
                     type="password"                  
-                    placeholder="Rescribir Password"
+                    placeholder="Re-escribir Password"
                     name="RPASWD"
                     className="ATBJFormInput"
                     value={registrodatos?.RPASWD ? registrodatos?.RPASWD: ""}
+                    autocomplete="new-password"
                     onChange={(e) => {
                       setRegistrodatos({
                         ...registrodatos, // Mantener las demás propiedades
@@ -232,7 +234,7 @@ const UsuariosAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                     <Form.Control
                       required
                       type="text"
-                      placeholder="Primer Apellido"
+                      placeholder="Correo"
                       name="CORREO"
                       className="ATBJFormInput"
                       value={registrodatos?.CORREO ? registrodatos?.CORREO: ""}

@@ -8,8 +8,8 @@ import { useObtcategoriasQuery, useMenudetalleMutation, useObtmenudetalleQuery, 
 
 const MenuActualizar = ({IDMENU, NOMBREMENU, FECHAPROGRAMADA, COMENTARIO }) => {
   //---[ USESTATE]---
-    const [selectedItem, setSelectedItem] = useState(2); 
-    const [activeKey, setActiveKey] = useState(2);   
+    const [selectedItem, setSelectedItem] = useState(1); 
+    const [activeKey, setActiveKey] = useState(1);   
     const [productosSeleccionados, setProductosSeleccionados] = useState([]);
     const [nombreMenu, setNombreMenu] = useState(NOMBREMENU); // Estado para el estado de la orden
     const [fechaProgramada, setFechaProgramada] = useState(FECHAPROGRAMADA); // Estado para el estado de la orden
@@ -238,32 +238,31 @@ const MenuActualizar = ({IDMENU, NOMBREMENU, FECHAPROGRAMADA, COMENTARIO }) => {
         <div className="MenuPerfilPersonasTab">
           <div className="actualizarmenu mx-auto" style={{width:'30%'}}><div>ACTUALIZAR MENÚ</div></div>
           <br />
-          <Tab.Container  id="left-tabs-example"  activeKey={activeKey}  onSelect={(k) => setActiveKey(k)} >
-          <Row>
-            <>
-              <Col name="colizq" className="MenuPerfilPersonasColizq mppImage2 col-equal-height" xs={4} sm={4} md={4} lg={2} xl={2}>
-              <div className="d-flex justify-content-center">
-                  <div className="textoCategorias" style={{ fontWeight: 'bold', lineHeight: 4 }}>ACTUALIZAR MENÚ</div>
+          <Tab.Container  id="left-tabs-example2"  activeKey={activeKey}  onSelect={(k) => setActiveKey(k)} >
+            <Row>
+       
+              <Col name="colizq"  className="colizq MenuPerfilPersonasColizq mppImage2">
+                <div className="d-flex justify-content-center">
+                    <div className="textoCategorias" style={{ fontWeight: 'bold', lineHeight: 3, fontSize: "0.7rem" }}>ACTUALIZAR MENÚ</div>
                 </div>              
-                <Nav variant="pills" className="flex-column d-flex justify-content-center">
-                  {ListaCategorias.map((categoria) => (
-                    <Nav.Item key={categoria.IDCAT} className="text-center flex-fill"  style={{"--bs-nav-link-padding-y": "1rem"}} >
-                      <Nav.Link 
-                        className={`Tabstitulo_catcomida nav-link2 ${selectedItem === categoria.IDCAT? "selected" : ""}`}
-                        eventKey={categoria.IDCAT}
-                        onClick={() => handleItemClick(categoria.IDCAT)}
-                      >                        
-                        <div className="textoCategorias">{categoria.NOMBRECAT}</div>
-                      </Nav.Link>
-                    </Nav.Item>
-                  ))}
-
-                </Nav>
+                  <Nav variant="pills" className="flex-column d-flex justify-content-center">
+                    {ListaCategorias.map((categoria) => (
+                      <Nav.Item key={categoria.IDCAT} className="text-center flex-fill"  style={{"--bs-nav-link-padding-y": "1rem"}} >
+                        <Nav.Link 
+                          className={`Tabstitulo_catcomida nav-link2 ${selectedItem === categoria.IDCAT? "selected" : ""}`}
+                          eventKey={categoria.IDCAT}
+                          onClick={() => handleItemClick(categoria.IDCAT)}
+                        >                        
+                          <div className="textoCategorias">{categoria.NOMBRECAT}</div>
+                        </Nav.Link>
+                      </Nav.Item>
+                    ))}
+                  </Nav>
               </Col>
 
-              <Col name="colder" className="col-equal-height" xs={6} sm={8} md={8} lg={10} xl={10}>
-                  
-                <Tab.Content name="Tab1" className="justify-content-start w-100 align-items-start ">
+              <Col name="colder">
+                    
+                <Tab.Content name="Tab2" className="justify-content-start w-100 align-items-start ">
                   {ListaCategorias.map((categoria) => (             
                     <Tab.Pane key={categoria.IDCAT} eventKey={categoria.IDCAT}>                          
                       <MenuProdXCat
@@ -277,133 +276,141 @@ const MenuActualizar = ({IDMENU, NOMBREMENU, FECHAPROGRAMADA, COMENTARIO }) => {
                 </Tab.Content>
   
                 <br />
-                <div name="divintermedio" className="contenedor d-flex align-items-center gap-3 p-2">
-                    <Form.Group controlId="NMENU" className="me-3">
-                        <Form.Label className="ATBJformLabel">Nombre del menú</Form.Label>
+
+                <Form name="TotalForm" >
+                    <div name="divintermedio" className="contenedor d-flex flex-wrap align-items-center gap-3 p-2">
+                      <Form.Group controlId="NMENU" className="me-3">
+                          <Form.Label className="ATBJformLabel">Nombre del menú</Form.Label>
+                          <Form.Control
+                            required
+                            as="input"
+                            type="text"
+                            name="NMENU"
+                            className="ATBJFormInput W-auto"
+                            value={nombreMenu} 
+                            onChange={(e) => {setNombreMenu(e.target.value);
+                            }} // Actualizar el estado
+                          >
+                          </Form.Control>
+                      </Form.Group>
+                      <Form.Group controlId="FPROG" className="me-3">
+                        <Form.Label className="ATBJformLabel">Programar Fecha:</Form.Label>
                         <Form.Control
                           required
                           as="input"
-                          type="text"
-                          name="NMENU"
+                          type="date"
+                          min={obtenerFechaMinimaLocal()}
+                          name="FPROG"
                           className="ATBJFormInput W-auto"
-                          value={nombreMenu} 
-                          onChange={(e) => {setNombreMenu(e.target.value);
-                          }} // Actualizar el estado
+                          value={fechaProgramada}
+                          onChange={(e) => setFechaProgramada(e.target.value)} // Actualizar el estado
                         >
                         </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="FPROG" className="me-3">
-                      <Form.Label className="ATBJformLabel">Programar Fecha:</Form.Label>
-                      <Form.Control
-                        required
-                        as="input"
-                        type="date"
-                        min={obtenerFechaMinimaLocal()}
-                        name="FPROG"
-                        className="ATBJFormInput W-auto"
-                        value={fechaProgramada}
-                        onChange={(e) => setFechaProgramada(e.target.value)} // Actualizar el estado
-                      >
-                      </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="COMENU" className="me-3">
-                        <Form.Label className="ATBJformLabel">Comentario adicional:</Form.Label>
-                        <Form.Control
-                          required
-                          as="input"
-                          type="text"
-                          name="COMENU"
-                          className="ATBJFormInput W-auto"
-                          value={comentariomenu} 
-                          onChange={(e) => {setComentariomenu(e.target.value);
-                          }} // Actualizar el estado
-                        >
-                        </Form.Control>
-                    </Form.Group>
-                    <Button className="color_tablabotones" size="sm" 
-                    onClick={() => cambiosdelainfomenu()}>Actualizar Nombre o Fecha</Button>
-                </div>
-
-                <br />
-                <div name="Tab2" className=" ">
-                    <div name="menucrear" className="row-b contenedor ">                    
-                    <div className="titulos_MenuCrearMenu">MOSTRAR MENÚ</div>
-
-                    <Table name="Tabla1" striped bordered className="tabla-redondeada">
-                        <thead>
-                        <tr >
-                        <th className="linea">#</th>
-                        <th className="linea">Imagen</th>
-                        <th className="linea">Nombre</th>
-                        <th className="linea">Precio Grande</th>
-                        <th className="linea">Precio Pequeño</th>
-                        <th className="linea">Borrar</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                          {productosSeleccionados.map((producto, index) => (
-                            <tr key={index}>
-                              <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""}>{index + 1}</td>
-                              <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""} >
-                                <img
-                                  width="32"
-                                  height="32"
-                                  alt={producto.PRODNOM || "Producto"}
-                                  src={producto.PRODIMG ? `./img/productos/${producto.PRODIMG}` : "./img/productos/no_img.png"}
-                                />
-                              </td>
-                              <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""}>{producto.PRODNOM || "Producto sin nombre"}</td>
-                              <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""}>
-                                <input
-                                  name="PRECIOG"
-                                  type="number"
-                                  value={producto.PRECIOG}
-                                  onChange={(e) => actualizar(index, e.target.name, e.target.value)}
-                                  style={{ width: "80px" }}
-                                  step="0.1"
-                                  min="0"
-                                  disabled={producto.operacion === "BORRAR"} // Deshabilitar si está marcado para borrar
-                                />
-                              </td>
-                              <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""}>
-                                <input
-                                  name="PRECIOP"
-                                  type="number"
-                                  value={producto.PRECIOP}
-                                  onChange={(e) => actualizar(index, e.target.name, e.target.value)}
-                                  style={{ width: "80px" }}
-                                  step="0.1"
-                                  min="0"
-                                  disabled={producto.operacion === "BORRAR"} // Deshabilitar si está marcado para borrar
-                                />
-                              </td>
-                              <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""}>
-                                <input
-                                  type="checkbox"
-                                  checked={producto.operacion === "BORRAR"}
-                                  onChange={() => toggleBorrar(index)}
-                                  style={{ cursor: "pointer" }}
-                                />
-                              </td>
-                            </tr>
-                          ))}
-                      </tbody>
-                    <tfoot>
-                        <tr >
-                        <td className="linea" colSpan="6" style={{ textAlign: "center", fontWeight: "bold" }}>
-                            Total de productos seleccionados: {productosSeleccionados.length}
-                        </td>
-                        </tr>
-                    </tfoot>
-                    </Table>
+                      </Form.Group>
+                      <Form.Group controlId="COMENU" className="me-3">
+                          <Form.Label className="ATBJformLabel">Comentario adicional:</Form.Label>
+                          <Form.Control
+                            required
+                            as="input"
+                            type="text"
+                            name="COMENU"
+                            className="ATBJFormInput W-auto"
+                            value={comentariomenu} 
+                            onChange={(e) => {setComentariomenu(e.target.value);
+                            }} // Actualizar el estado
+                          >
+                          </Form.Control>
+                      </Form.Group>
+                      <Button className="color_tablabotones" size="sm" 
+                      onClick={() => cambiosdelainfomenu()}>Actualizar Nombre o Fecha</Button>
                     </div>
-                    <br />
-                    <Button className="color_tablabotones" size="sm" onClick={() => onSubmit(productosSeleccionados)}>Guardar los cambios al Menú</Button>
-                </div>
 
-              </Col>
-            </>
-          </Row>          
+                    <br />
+
+                    <div name="Tab2" className=" ">
+
+                      <div name="menucrear" className="row-b contenedor ">                    
+                        <div className="titulos_MenuCrearMenu">MOSTRAR MENÚ</div>
+                        <Table name="Tabla1" striped bordered className="tabla-redondeada">
+                            <thead>
+                            <tr >
+                            <th className="linea">#</th>
+                            <th className="linea">Imagen</th>
+                            <th className="linea">Nombre</th>
+                            <th className="linea">Precio Grande</th>
+                            <th className="linea">Precio Pequeño</th>
+                            <th className="linea">Borrar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              {productosSeleccionados.map((producto, index) => (
+                                <tr key={index}>
+                                  <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""}>{index + 1}</td>
+                                  <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""} >
+                                    <img
+                                      width="32"
+                                      height="32"
+                                      alt={producto.PRODNOM || "Producto"}
+                                      src={producto.PRODIMG ? `./img/productos/${producto.PRODIMG}` : "./img/productos/no_img.png"}
+                                    />
+                                  </td>
+                                  <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""}>{producto.PRODNOM || "Producto sin nombre"}</td>
+                                  <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""}>
+                                    <input
+                                      name="PRECIOG"
+                                      type="number"
+                                      value={producto.PRECIOG}
+                                      onChange={(e) => actualizar(index, e.target.name, e.target.value)}
+                                      style={{ width: "80px" }}
+                                      step="0.1"
+                                      min="0"
+                                      disabled={producto.operacion === "BORRAR"} // Deshabilitar si está marcado para borrar
+                                    />
+                                  </td>
+                                  <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""}>
+                                    <input
+                                      name="PRECIOP"
+                                      type="number"
+                                      value={producto.PRECIOP}
+                                      onChange={(e) => actualizar(index, e.target.name, e.target.value)}
+                                      style={{ width: "80px" }}
+                                      step="0.1"
+                                      min="0"
+                                      disabled={producto.operacion === "BORRAR"} // Deshabilitar si está marcado para borrar
+                                    />
+                                  </td>
+                                  <td className={producto.operacion === "BORRAR" ? "fila-borrar" : ""}>
+                                    <input
+                                      type="checkbox"
+                                      checked={producto.operacion === "BORRAR"}
+                                      onChange={() => toggleBorrar(index)}
+                                      style={{ cursor: "pointer" }}
+                                    />
+                                  </td>
+                                </tr>
+                              ))}
+                          </tbody>
+                        <tfoot>
+                            <tr >
+                            <td className="linea" colSpan="6" style={{ textAlign: "center", fontWeight: "bold" }}>
+                                Total de productos seleccionados: {productosSeleccionados.length}
+                            </td>
+                            </tr>
+                        </tfoot>
+                        </Table>
+                      </div>
+
+                        <br />
+
+                        <Button className="color_tablabotones" size="sm" onClick={() => onSubmit(productosSeleccionados)}>Guardar los cambios al Menú</Button>
+
+                    </div>
+                    
+                </Form>
+
+                </Col>
+           
+            </Row>          
           </Tab.Container>
         </div>
       <Toaster />

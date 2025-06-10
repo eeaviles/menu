@@ -110,9 +110,9 @@ import { FiltroGlobal } from "../componentes/FiltroGlobal";
       }),
 
     ];
-
+    
 //---[COMPONENTE PRINCIPALES]----------------------------------------------------------
-  const ReporteDetalleOrden = ({NUMFILA, CODOR, modalTipo}) => {
+  const ReporteDetalleOrden = ({NUMFILA, CODOR, modalTipo, onDetalleOrdenes}) => {
     //---[ QUERY: OBTENER ORDENES]----
     const [OBtcam, setOBtcam] = useState(null);
     useEffect(() => {
@@ -122,7 +122,17 @@ import { FiltroGlobal } from "../componentes/FiltroGlobal";
         ID: NUMFILA
       });
     }, [NUMFILA]);
-    const { data: DetalleOrdenes, isSuccess:  isDetalleOrdenes } = useObtdetallesordenesQuery(OBtcam,{ skip: !OBtcam }); 
+    const { data: DetalleOrdenes, isSuccess:  isDetalleOrdenes } = useObtdetallesordenesQuery(OBtcam,{ skip: !OBtcam });
+
+        // Llama al callback cuando los datos estén disponibles
+    useEffect(() => {
+      if (isDetalleOrdenes && DetalleOrdenes) {
+        onDetalleOrdenes(DetalleOrdenes); // Enviar los datos al componente padre
+      }
+    }, [isDetalleOrdenes, DetalleOrdenes, onDetalleOrdenes]);
+
+    // Calcula los totales si hay datos disponibles
+    const totales = useMemo(() => (DetalleOrdenes ? calcularTotales(DetalleOrdenes) : { TAPGAR: 0, PREFIN: 0, PRECDES: 0 }), [DetalleOrdenes]);
 
     return (
       <>
@@ -132,32 +142,27 @@ import { FiltroGlobal } from "../componentes/FiltroGlobal";
               <div className="container mx-auto contenedor contenedorcentral">
                 <div className="Titulo">DETALLE DE LA ORDEN: <span style={{color:"#0074b3"}} >{CODOR}</span></div>
                 {isDetalleOrdenes && (
-                  <TablaReporte
-                    IDEMPRE={'1'}
+                  <TablaReporte     
                     Filas={DetalleOrdenes}
                     TIPOCOLUMNA={COL_ORDENES}
-                    ETIQUETA="ORDENES"
-                    COMPONENTE={''}
                   />
                 )}
               </div>         
             ) : modalTipo === "IMPRIMIR" ? (
               <div className="ticket">
-                <h5 className="text-center">Ticket de Compra</h5>
-                <p className="text-center" style={{ fontSize: "12px", margin: "0" }}>
-                  Fecha: {new Date().toLocaleString()}
-                </p>
-                <p className="text-center" style={{ fontSize: "12px", margin: "0", fontWeight: "bold" }}>
-                  Código: {CODOR}
-                </p>
+                <p className="text-center" style={{ fontSize: "16px", margin: "0"}}>Ticket de Compra</p>
+                <p className="text-center" style={{ fontSize: "16px", margin: "0"}}>CÓDIGO: {CODOR}</p>
+                <p className="text-center" style={{ fontSize: "16px", margin: "0" }}>CAFÉ GARZAN</p>
+                <p className="text-center" style={{ fontSize: "12px", margin: "0" }}>FECHA: {new Date().toLocaleString()}</p>
                 <hr />
                 <Table bordered className="tabla-redondeada">
                   <thead>
                     <tr>
                       <th>Nombre</th>
-                      <th>Cantidad</th>
-                      <th>Precio</th>
-                      <th>Subtotal</th>
+                      <th>Cant</th>
+                      <th>Pre</th>
+                      <th>Desc</th>
+                      <th>SubT</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -166,9 +171,20 @@ import { FiltroGlobal } from "../componentes/FiltroGlobal";
                         <td>{detalle.NOMPRD}</td>
                         <td>{detalle.CANT}</td>
                         <td>${parseFloat(detalle.PRECIO).toFixed(2)}</td>
+                        <td>${parseFloat(detalle.PRECDES).toFixed(2)}</td>                     
                         <td>${(detalle.CANT * detalle.PRECIO).toFixed(2)}</td>
                       </tr>
-                    ))}
+                    ))                                   
+                    }
+                    <tr>
+                      <td colSpan="4" className="text-end">
+                        <strong>Total a Pagar:</strong>
+                      </td>
+                      <td>
+                        <strong>${parseFloat(totales.TAPGAR).toFixed(2)}</strong>
+                      </td>
+                    </tr>   
+
                   </tbody>
                 </Table>
               </div>
@@ -199,8 +215,6 @@ import { FiltroGlobal } from "../componentes/FiltroGlobal";
     });
 
     const totales = calcularTotales(Filas);
-
-
 
     return (
       <div name="caja1" className="container mx-auto">
@@ -285,7 +299,7 @@ import { FiltroGlobal } from "../componentes/FiltroGlobal";
                   </tr>
                 ))}
               <tr>
-                <td colSpan={4} style={{ fontWeight: "bold", textAlign: "center" }}>Totales</td>
+                <td colSpan={4} style={{ fontWeight: "bold", textAlign: "center" }}>Totales del Detalle de la Orden</td>
                 <td style={{ fontWeight: "bold", textAlign: "center" }}>{`$ `+totales.PREFIN.toFixed(2)}</td>
                 <td style={{ fontWeight: "bold", textAlign: "center" }}>{`$ `+totales.PRECDES.toFixed(2)}</td>
                 <td style={{ fontWeight: "bold", textAlign: "center" }}>{`$ `+totales.TAPGAR.toFixed(2)}</td>             

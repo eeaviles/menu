@@ -111,7 +111,7 @@ export const GenericApi = createApi({
         body: JSON.stringify(paquete),
         credentials: "include",
       }),
-      invalidatesTags: ["Empresas"],
+      invalidatesTags: ["Empresas", "Sucursales", "Emp_Cat019"],
     }),
 
     obtsucursalesxid: build.query({

@@ -110,6 +110,7 @@ class Productos {
                 WHERE p.id_categoria = :id 
                 AND p.c_activo = 'S' 
                 AND c.c_activo='S'
+                ORDER BY p.vc_nombre
                 ";
                 $stmt = $this->conn->prepare($query);
                 $params = [':id' => $this->getId_categoria()];

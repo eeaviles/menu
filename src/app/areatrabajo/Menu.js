@@ -171,7 +171,7 @@ const Menu = () => {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" variant="dark" className="Nav" style={{ justifyContent: "flex-end" }} >
+      <Navbar collapseOnSelect expand="md" variant="dark" className="Nav" style={{ justifyContent: "flex-end" }} >
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             {
@@ -192,9 +192,9 @@ const Menu = () => {
           <Offcanvas.Title className="offcanvaimg">
             <img
               alt=""
-              src={process.env.PUBLIC_URL + "/servapp/build/img/logos/SERVIFACO_256x62.png"}
-              width="256"
-              height="61"
+              src="./img/logos/Menu_64x64.png"
+              width="64"
+              height="64"
               className="d-inline-block "
             />
           </Offcanvas.Title>

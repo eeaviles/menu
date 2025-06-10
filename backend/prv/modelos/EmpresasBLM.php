@@ -244,7 +244,7 @@ class Empresas {
         try {
             $query = 
                 'SELECT ROW_NUMBER() OVER (ORDER BY e.id_empresa ) AS NF, e.id_empresa AS IDEMPRE, e.vc_logo AS LOGO, e.vc_nombre AS NEMPRE, e.vc_razonsocial AS RAZSOC, e.vc_nit AS NIT, e.vc_nrc AS NRC, e.vc_correo AS EMAIL, e.vc_codpostalpago AS CODPOS, e.vc_empresatel AS TELEMP, e.vc_webpage AS WEBP, e.t_dirprincipal AS UBI, e.vc_girocomercio AS GIRO, vc_pais AS PAIS, ec.vc_nombre AS CPRINC, ec.vc_dui AS CDUI, ec.vc_correo AS CEMAIL, ec.vc_telefono AS CTEL, ec.vc_puestotrabajo AS CCARGO, ec.vc_area AS CAREA,  ec.t_descripcion AS CDESCRIP, ec.id_empresacontacto AS CIDEMPRESA, e.c_proveclien AS PROVCLIEN, e.vc_tipo AS TIPOEMPRESA, e.t_descripcion AS COMEADIC, s.id_sucursal AS IDSUC, s.vc_nombresucursal AS NOMBRE, s.vc_telefono AS TEL, 
-                s.vc_codsucursal AS  CODSUC, c20.id_cat020 AS IDCAT20, c20.vc_valores AS valores, c13.id_cat13 AS IDCAT13, c12.id_cat12 AS IDCAT12
+                s.vc_codsucursal AS  CODSUC, c20.id_cat020 AS IDCAT20, c20.vc_valores AS Valores, c13.id_cat13 AS IDCAT13, c12.id_cat12 AS IDCAT12
                 FROM menu.empresas AS e 
                 JOIN menu.empresascontactos AS ec ON e.id_empresa = ec.id_empresa
                 JOIN menu.sucursales AS s ON e.id_empresa = s.id_empresa       

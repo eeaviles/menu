@@ -245,6 +245,7 @@ class EmpresasController{
                 'NOMBRE'=>$data['NOMBRE'],
                 'UBI'=>$data["UBI"],
                 'TEL'=>$data["TEL"],
+                'DESCRIP'=>'',
             );
             $tempOteSucursal=$this->objSucursalesController->accion($ArrayTag);
 

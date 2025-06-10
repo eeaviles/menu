@@ -56,19 +56,19 @@
 /***********OFF CANVAS *******/
     .btn-reorder{
         cursor: pointer;
-        background: rgb(55, 55, 57, 1) !important;
+        background: rgb(150, 150, 156) !important;
         justify-content: flex-end !important;
     }
 
     #botonmenuasociado{
-    display:none;
+        display:none;
     }
 
     #botonmenuasociado:hover{
-        background-color: rgb(24, 24, 24)  !important;
+        background-color: rgb(104, 104, 104)  !important;
     }
 
-    @media only screen and (max-width: 992px) {
+    @media only screen and (max-width: 900px) {
         #botonmenuasociado {
             display:block;
             align-items: center;
@@ -80,26 +80,26 @@
     }
 
     .offcanvaheader{
-        background: rgb(202, 202, 202) !important;  
+        background: rgb(227, 233, 238) !important;  
     }
 
     .offcanvaheader>button{
-    background-color:  rgb(202, 202, 202) !important;
+    background-color:  rgb(227, 233, 238) !important;
     opacity: 1;
-    margin-left: 1.5rem  !important;;
+    margin-left: 1.5rem  !important;
     }
 
     .offcanvaheader>button:hover{        
-        background-color: rgb(107, 107, 107)   !important;
+        background-color: rgb(227, 233, 238) !important;
         opacity: 1;
-        margin-left: 1.5rem  !important;;
+        margin-left: 1.5rem  !important;
     }
 
     .offcanvabody{
-        background-color: rgb(55, 55, 57, 1) !important;
+        background-color: rgb(237, 242, 247) !important;
     }
     .offcanvaimg{
-        font-size: 1.0rem !important;
+        font-size: 0.5rem !important;
         margin: auto;
     }
 
@@ -108,7 +108,6 @@
         position: relative;
         margin-top: 1rem;
     }
-
     .MenuPerfilPersonasColizq{
         background: rgb(227, 233, 238) !important;
     }

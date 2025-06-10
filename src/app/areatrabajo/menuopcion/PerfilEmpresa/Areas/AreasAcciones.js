@@ -147,7 +147,7 @@ const AreasAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                 <Form.Control
                   required
                   type="text"
-                  placeholder="Nombre de la Sucursal"
+                  placeholder="Nombre del Área"
                   name="ANBRE"
                   className="ATBJFormInput"
                   value={registrodatos?.ANBRE ? registrodatos?.ANBRE : ""}

@@ -106,7 +106,7 @@
 
 .cardproductos,
 .cardproductos2{
-    padding: 10px;
+    padding: 5px;
     height: 'auto';
     display: flex;
     flex-direction: column;
@@ -121,8 +121,8 @@
 
 .cardproductos img,
 .cardproductos2 img {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
   }
 
 .cardproductos:hover{ 
@@ -135,7 +135,7 @@
 }
 
 .etinombreproducto{
-   margin-top: 10px;
+   margin-top: 1px;
    text-align: center; 
    font-size: 0.8rem;
    font-weight: bold;   
@@ -195,13 +195,27 @@
 
 /* Asegura que las columnas ocupen la misma altura */
 .col-equal-height {
-    flex: 1; /* Hace que ambas columnas ocupen el mismo espacio */
     display: flex;
-    flex-direction: column; /* Organiza el contenido verticalmente */
-    justify-content: stretch; /* Asegura que las columnas se estiren */
-    min-height: 100%; /* Asegura que las columnas se expandan al máximo */
 }
 
+.rowcontenedor {
+    display: flex;
+    flex-wrap: nowrap; /* Evita que las columnas pasen a la siguiente fila */
+  }
+  
+  .colizq {
+    min-width: 140px !important;; /* Ancho mínimo para la primera columna */
+    max-width: 100px !important;; /* Ancho máximo para la primera columna */  
+  }
+    
+  .colder {
+    min-width: 150px !important;; /* Ancho mínimo para la segunda columna */
+    max-width: calc(100% - 300px); /* Ajusta el ancho máximo según la primera columna */
+    display: flex;
+    flex-direction: column; /* Apila los elementos verticalmente */
+    gap: 1rem; /* Espaciado entre los elementos */
+  }
+  
 /* Proporciones para los componentes Row "a" y Row "b" */
 .row-a {
     flex: 65; /* 65% de la altura del contenedor padre */
@@ -307,10 +321,9 @@ color: #333; /* Color del texto */
 .titulos_MenuCrearMenu{
     color:var(--color-6)!important;
     font-weight: bold; /* Texto en negrita */
-    height: 25px;
-    padding: 1rem 2rem 3rem 1rem;
-    line-height: 25px;
-
+    height: 15px;
+    padding: 1rem 1rem 1rem 1rem;
+    line-height: 15px;
 }
 
 .actualizarmenu{    

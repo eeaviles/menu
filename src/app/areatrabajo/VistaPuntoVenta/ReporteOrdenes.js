@@ -7,6 +7,7 @@ import { Table as BTable, Container, Row, Col, Image, Button, Modal, Form } from
 import { useReactTable, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, flexRender, createColumnHelper } from "@tanstack/react-table";
 import { FiltroGlobal } from "../componentes/FiltroGlobal";
 import ReporteDetalleOrden from "./ReporteDetalleOrden.js";
+import Imprimir from "./Imprimir4.js";
 
 //---[ TABLA SUCURSALES HELPERS ]-------------------------
 
@@ -187,7 +188,14 @@ import ReporteDetalleOrden from "./ReporteDetalleOrden.js";
   const ReporteOrdenes = () => {
     
     const [fechaInicio, setFechaInicio] = useState(obtenerFechaActual());
-    const [fechaFin, setFechaFin] = useState(obtenerFechaActual());  
+    const [fechaFin, setFechaFin] = useState(obtenerFechaActual());
+    const [detalleOrdenes, setDetalleOrdenes] = useState(null);
+
+    // Callback para recibir los datos de DetalleOrdenes
+    const handleDetalleOrdenes = (data) => {
+      setDetalleOrdenes(data); // Guardar los datos en el estado
+    };
+
 
     //---[ QUERY: OBTENER ORDENES]----
 
@@ -243,10 +251,7 @@ import ReporteDetalleOrden from "./ReporteDetalleOrden.js";
 
                   <Form.Group controlId="botonBuscar" className="BuscarAncho me-3">
                     <Form.Label className="ATBJformLabel d-block">Acción:</Form.Label>
-                    <Button
-                      variant="primary"
-                      onClick={() => { enviarDatos() }}     
-                    >
+                    <Button variant="primary" onClick={() => { enviarDatos() }} >
                       Buscar
                     </Button>
                   </Form.Group>
@@ -257,12 +262,12 @@ import ReporteDetalleOrden from "./ReporteDetalleOrden.js";
                 {isListaOrdenes !== false && (
                   <div>
                     {isListaOrdenes && (
-                      <TablaReporte
-                        IDEMPRE={'1'}
+                      <TablaReporte                 
                         Filas={ListaOrdenes}
-                        TIPOCOLUMNA={COL_ORDENES}
-                        ETIQUETA="ORDENES"
+                        TIPOCOLUMNA={COL_ORDENES}                 
                         COMPONENTE={ReporteDetalleOrden}
+                        handleDetalleOrdenes={handleDetalleOrdenes} // Pasar el callback
+                        detalleOrdenes={detalleOrdenes} // Pasar los datos de detalle
                       />
                     )}
                   </div>
@@ -276,19 +281,19 @@ import ReporteDetalleOrden from "./ReporteDetalleOrden.js";
   };
 
 //---[COMPONENTE TABLA]----------------------------------------------------------
-  const TablaReporte = ({Filas, TIPOCOLUMNA, COMPONENTE}) => {
+  const TablaReporte = ({Filas, TIPOCOLUMNA, COMPONENTE, handleDetalleOrdenes, detalleOrdenes}) => {
     //---[CONTANTES]
     //const dispatch = useDispatch();
    // const useractivo = JSON.parse(sessionStorage.getItem("SESIONUSER")) || null;
     const [show, setShow] = useState(false); //-----[ PARA EL MODAL]
-    const [numfila, setNumfila] = useState(null);
+    const [numfila, setNumfila] = useState([]);
+    const [filaimprimir, setFilaimprimir] = useState(null);
     const columns = TIPOCOLUMNA;
     const data = useMemo(() => Filas, [Filas]);
     const [globalFilter, setGlobalFilter] = useState(""); //FILTRO PARA TODA LA TABLA
     const [columnFilters, setColumnFilters] = useState([]); //FILTRO PARA COLUMNAS
     const [codigoOrdenSeleccionado, setCodigoOrdenSeleccionado] = useState(null); 
-    const [modalTipo, setModalTipo] = useState(""); // "DETALLE" o "IMPRIMIR"
-
+    const [modalTipo, setModalTipo] = useState(""); // "DETALLE" o "IMPRIMIR"   
     const table = useReactTable({
       columns,
       data,
@@ -312,6 +317,7 @@ import ReporteDetalleOrden from "./ReporteDetalleOrden.js";
     const totales = calcularTotales(Filas);
 
     const ObtModlal = (e, ROWID, CODOR, tipo, datosFila) => {
+      if(datosFila){setFilaimprimir(datosFila); }      
       setNumfila(ROWID); // Fijar la fila de datos seleccionada
       setCodigoOrdenSeleccionado(CODOR); // Guardar el código de orden seleccionado
       setModalTipo(tipo); // Establecer el tipo de modal
@@ -319,58 +325,31 @@ import ReporteDetalleOrden from "./ReporteDetalleOrden.js";
     };
 
     const handlePrintTicket = () => {
-      const ticketContent = document.querySelector(".ticket").innerHTML; // Selecciona el contenido del ticket
-      const printWindow = window.open("", "_blank", "width=800,height=600");
-      printWindow.document.open();
-      printWindow.document.write(`
-        <html>
-          <head>
-            <title>Imprimir Ticket</title>
-            <style>
-              @media print {
-                body {
-                  font-family: 'Courier New', Courier, monospace;
-                  font-size: 12px;
-                  margin: 0;
-                  padding: 0;
-                  width: 80mm; /* Ancho del ticket térmico */
-                }
-                .ticket {
-                  width: 100%;
-                  text-align: left;
-                }
-                .ticket-header {
-                  text-align: center;
-                  margin-bottom: 10px;
-                }
-                .ticket-table {
-                  width: 100%;
-                  border-collapse: collapse;
-                }
-                .ticket-table th, .ticket-table td {
-                  border: none;
-                  padding: 5px 0;
-                  text-align: left;
-                }
-                .ticket-total {
-                  text-align: right;
-                  margin-top: 10px;
-                  font-weight: bold;
-                }
-              }
-            </style>
-          </head>
-          <body>
-            <div class="ticket">
-              ${ticketContent}
-            </div>
-          </body>
-        </html>
-      `);
-      printWindow.document.close();
-      printWindow.focus();
-      printWindow.print();
-      printWindow.close();
+      // Guardar los datos seleccionados
+      console.log(filaimprimir);
+      console.log(detalleOrdenes);
+   
+      // Preparar los datos para pasar a Imprimir.html
+      
+      const datos = {
+        codigo: filaimprimir.CODOR,        
+        fecha: filaimprimir.FECREA,
+        productos: detalleOrdenes.map((producto) => ({
+          nombre: producto.NOMPRD,
+          cantidad: producto.CANT,
+          precio: parseFloat(producto.PRECIO|| 0),
+          descuento: parseFloat(producto.PRECDES),
+          subtotal: producto.CANT * parseFloat(producto.PRECIO).toFixed(2) - parseFloat(producto.PRECDES).toFixed(2),
+        })),
+        total: parseFloat(filaimprimir.TPAGO).toFixed(2),
+      };
+      
+      // Ejecutar la lógica de impresión
+      const imprimir = Imprimir(datos);
+      imprimir.print(); // Llama a la función print
+    
+      // Cerrar el modal
+      setShow(false);        
     };
 
     return (
@@ -387,20 +366,22 @@ import ReporteDetalleOrden from "./ReporteDetalleOrden.js";
               <Modal.Title style={{ textAlign: "center", width: "100%" }}>Cafégarzan</Modal.Title>
             )}
           </Modal.Header>
+
           <Modal.Body>
-              <COMPONENTE
-                NUMFILA={numfila}
-                CODOR={codigoOrdenSeleccionado}
+              <COMPONENTE 
+                NUMFILA={numfila} 
+                CODOR={codigoOrdenSeleccionado} 
                 modalTipo={modalTipo} // Pasar el tipo de modal
+                onDetalleOrdenes={handleDetalleOrdenes} // Pasar el callback
               />
-            </Modal.Body>
+          </Modal.Body>
+
           <Modal.Footer style={{ borderTop: "none" }}>
             {modalTipo === "IMPRIMIR" && (
-              <Button variant="warning" onClick={handlePrintTicket}>
-                Imprimir Ticket
-              </Button>
+              <Button variant="warning" onClick={handlePrintTicket}>Imprimir Ticket</Button>
             )}
-          </Modal.Footer>         
+          </Modal.Footer>        
+
         </Modal>
 
         <div className="ContBusquedaAgregar">
@@ -499,7 +480,7 @@ import ReporteDetalleOrden from "./ReporteDetalleOrden.js";
                   </tr>
                 ))}
               <tr>
-                <td colSpan={4} style={{ fontWeight: "bold", textAlign: "center" }}> Totales </td>
+                <td colSpan={4} style={{ fontWeight: "bold", textAlign: "center" }}> Totales de la Lista de Ordenes</td>
                 <td style={{ fontWeight: "bold", textAlign: "center" }}> {`$ `+totales.TPAGO.toFixed(2)} </td>
                 <td style={{ fontWeight: "bold", textAlign: "center" }}> {`$ `+totales.TDES.toFixed(2)} </td>
                 <td style={{ fontWeight: "bold", textAlign: "center" }}>  {`$ `+totales.TFINAL.toFixed(2)} </td>

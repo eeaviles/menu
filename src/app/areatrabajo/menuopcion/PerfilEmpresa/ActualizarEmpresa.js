@@ -31,7 +31,7 @@ const SelectComp = ({
         arrayOpciones.current = ObtOpciones.map(function (reg) {
           returnObject = {
             ID: reg["id"],
-            NOMBRE: reg["valores"],
+            NOMBRE: reg["Valores"],
             CODE: reg["Codigo"],
           };
           return returnObject;
@@ -129,12 +129,14 @@ const EditarEmpresa = ({ dataperfilempresa }) => {
 
   //---[ REDUX TOOLKIT QUERY]---
   // Solo ejecuta si OBtcam no es null
-  const { data: dataEmpCat019, isSuccess: isSuccess2 } = useObtEmp_Cat019Query(OBtcam,{ skip: !OBtcam });
+
+  const { data: dataEmpCat019 } = useObtEmp_Cat019Query(OBtcam,{ skip: !OBtcam });
+
   const [enviardata, { data: MensajeEmpresaBLM, isSuccess }] = useEnvrempMutation();
 
  useEffect(() => {
-    //AGREGANDO EL OBJETO DE ACTIVIDAD ECONOMICA A REGISTRO DE DATOS PARA QUE SE PUEDA MOSTRAR EN EL FORMULARIO
-   if (isSuccess2 && Array.isArray(dataEmpCat019)) {
+    //AGREGANDO EL OBJETO DE ACTIVIDAD ECONOMICA A REGISTRO DE DATOS PARA QUE SE PUEDA MOSTRAR EN EL FORMULARIO  
+   if (Array.isArray(dataEmpCat019)) {
      const opciones = dataEmpCat019.reduce((acc, reg) => {
        acc[reg.NOMBRE] = `${reg.COD}: ${reg.VALS}`;
        return acc;
@@ -149,13 +151,14 @@ const EditarEmpresa = ({ dataperfilempresa }) => {
     });
     
    }
- }, [isSuccess2, dataEmpCat019]);
-
+ }, [dataEmpCat019]);
 
   useEffect(() => {
-    if (dataperfilempresa) {
-      console.log(dataperfilempresa);
-      setRegistrodatos(dataperfilempresa);
+    if (dataperfilempresa) {      
+      setRegistrodatos((prevState) => ({
+        ...prevState,
+        ...dataperfilempresa, // Mantén el valor de "primaria"
+      }));
       setCam({ controller: "EmpresasController", accion: "actualizar" });
     } else {
       setCam({ controller: "EmpresasController", accion: "agregar" });
@@ -179,7 +182,7 @@ const EditarEmpresa = ({ dataperfilempresa }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(registrodatos);
+    //console.log(registrodatos);
     let enviardataApi = {
       controller: cam.controller,
       accion: cam.accion,
@@ -214,8 +217,7 @@ const EditarEmpresa = ({ dataperfilempresa }) => {
   function filter1(e) {
     const valor = e.target.value;
     let returnObject = [];
-    arrayOpciones = Catalogos.cat019
-      .map(function (reg) {
+    arrayOpciones = Catalogos.cat019.map(function (reg) {
         if (reg["Valores"].includes(valor)) {
           returnObject = { COD: reg["Codigo"], VAL: reg["Valores"] };
           return returnObject;
@@ -562,10 +564,7 @@ const EditarEmpresa = ({ dataperfilempresa }) => {
           <Row className="ATBJformfila">
             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
               <Form.Group controlId="primaria">
-                <label htmlFor="primaria" className="form-label ATBJformLabel">
-                  {" "}
-                  Primaria:{" "}
-                </label>
+                <label htmlFor="primaria" className="form-label ATBJformLabel"> Primaria: </label>
                 <input
                   required
                   type="text"
@@ -584,6 +583,12 @@ const EditarEmpresa = ({ dataperfilempresa }) => {
                   {optiondatalist.map((option, i) => (
                     <option key={i} value={option.COD + ": " + option.VAL} />
                   ))}
+                  {Catalogos.cat019.map(function (reg, i) {                 
+                      let returnObject = { COD: reg["Codigo"], VAL: reg["Valores"] };
+                      return (
+                        <option key={i} value={returnObject.COD + ": " + returnObject.VAL} />
+                      );                     
+                  })}
                 </datalist>
               </Form.Group>
             </Col>
@@ -616,6 +621,12 @@ const EditarEmpresa = ({ dataperfilempresa }) => {
                   {optiondatalist.map((option, i) => (
                     <option key={i} value={option.COD + ": " + option.VAL} />
                   ))}
+                  {Catalogos.cat019.map(function (reg, i) {                 
+                      let returnObject = { COD: reg["Codigo"], VAL: reg["Valores"] };
+                      return (
+                        <option key={i} value={returnObject.COD + ": " + returnObject.VAL} />
+                      );                     
+                  })}
                 </datalist>
               </Form.Group>
             </Col>
@@ -644,6 +655,12 @@ const EditarEmpresa = ({ dataperfilempresa }) => {
                   {optiondatalist.map((option, i) => (
                     <option key={i} value={option.COD + ": " + option.VAL} />
                   ))}
+                  {Catalogos.cat019.map(function (reg, i) {                 
+                      let returnObject = { COD: reg["Codigo"], VAL: reg["Valores"] };
+                      return (
+                        <option key={i} value={returnObject.COD + ": " + returnObject.VAL} />
+                      );                     
+                  })}
                 </datalist>
               </Form.Group>
             </Col>

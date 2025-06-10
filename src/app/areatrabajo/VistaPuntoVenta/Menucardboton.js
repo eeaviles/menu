@@ -15,14 +15,16 @@ const Menucardboton = ({ ListaProductos, NombreCategoria, onProductoSeleccionado
 
   return (
     <>
-    <div className="titulos_MenuCrearMenu"> {NombreCategoria}</div><br />
-    <Row style={{paddingLeft:'20px', gap: '10px'}}>
+    <div className="titulos_MenuCrearMenu"> {NombreCategoria}</div><hr />
+    <Row style={{paddingLeft:'10px', gap: '5px', justifyContent: "center"}}>
       {productos.map((producto, index) => (
-        <Col key={index} className='cardproductos2' xs={12} sm={4} md={2} lg={2} xl={2}>          
-          <div onClick={() => agregarProductoATabla(producto)}>
+        <Col key={index} className='cardproductos2' xs={12} sm={4} md={2} lg={2} xl={2} 
+        onClick={() => agregarProductoATabla(producto)}>          
+          <div >
             <Image
               alt={producto.PRODNOM || "Producto"}
               src={producto.PRODIMG ? `./img/productos/${producto.PRODIMG}` : "./img/productos/no_img.png"}
+     
             />
           </div>
           <div className="etinombreproducto">

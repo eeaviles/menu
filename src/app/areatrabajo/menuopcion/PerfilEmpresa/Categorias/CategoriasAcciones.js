@@ -81,7 +81,7 @@ const CategoriasAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   <Form.Control
                     required
                     type="text"
-                    placeholder="Nombre de la Sucursal "
+                    placeholder="Nombre de la Categoría "
                     name="NOMBRECAT"
                     className="ATBJFormInput"
                     value={registrodatos?.NOMBRECAT ? registrodatos?.NOMBRECAT: ""}

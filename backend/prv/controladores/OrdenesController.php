@@ -54,7 +54,7 @@ class OrdenesController {
             $this->objOrdenes->setDc_totaldescuento($data['totalDescuento']);
             $this->objOrdenes->setDc_totalapagar($data['totalAPagar']);
             $this->objOrdenes->setC_estado($data['ESTD']);
-            $this->objOrdenes->setC_metodopago($data['IDUSER']);
+            $this->objOrdenes->setC_metodopago($data['METPGO']);
             $this->objOrdenes->setDt_creacion($fechaGMT6);//CURRENT_TIMESTAMP
             $this->objOrdenes->setD_registro(date('Y-m-d'));            
             $this->objOrdenes->setC_activo('S');

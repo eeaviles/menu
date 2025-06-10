@@ -15,7 +15,7 @@ const Cardboton = ({ ListaProductos, NombreCategoria, onProductoSeleccionado }) 
 
   return (
     <>
-    <div className="titulos_MenuCrearMenu"> {NombreCategoria}</div><br />
+    <div className="titulos_MenuCrearMenu"> {NombreCategoria}</div><hr />
     <Row style={{paddingLeft:'5px', gap: '10px'}}>
       {productos.map((producto, index) => (
         <Col key={index} className='cardproductos' xs={12} sm={4} md={2} lg={2} xl={2}>          

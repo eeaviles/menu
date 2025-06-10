@@ -9,8 +9,8 @@ import { useObtcategoriasQuery, useMenusMutation  } from "../../redux/servicio/G
 const MenuCrearMenu = () => {
   
   //---[ USESTATE]---
-    const [selectedItem, setSelectedItem] = useState(2); 
-    const [activeKey, setActiveKey] = useState(2);   
+    const [selectedItem, setSelectedItem] = useState(1); 
+    const [activeKey, setActiveKey] = useState(1);   
     const [productosSeleccionados, setProductosSeleccionados] = useState([]);
     const [nombreMenu, setNombreMenu] = useState(""); // Estado para el estado de la orden
     const [comentariomenu, setComentariomenu] = useState(''); // Estado para el comentario del menú
@@ -55,22 +55,21 @@ const MenuCrearMenu = () => {
       }
     }, [isR_menus, R_menus]);
   
-
   //---[ QUERY: OBTENER CATEGORÍAS ]----
-      const { data: ListaCategorias, isSuccess: isListaCategorias} = useObtcategoriasQuery(obtcategoriascam,{ skip: !obtcategoriascam });
+    const { data: ListaCategorias, isSuccess: isListaCategorias} = useObtcategoriasQuery(obtcategoriascam,{ skip: !obtcategoriascam });
 
-      const handleItemClick = (key) => {
-        setSelectedItem(key); // Actualiza el elemento seleccionado
-        setActiveKey(key); // Cambia el Tab activo
-      };
+    const handleItemClick = (key) => {
+      setSelectedItem(key); // Actualiza el elemento seleccionado
+      setActiveKey(key); // Cambia el Tab activo
+    };
 
   //---[ AGREGAR PRODUCTO SELECCIONADO AL OBEJETO DE SALIDA ]---
-      const agregarProducto = (producto) => {
-        setProductosSeleccionados((prev) => {
-          const nuevoEstado = [...prev, { ...producto, descuento: 0, cantidad: 1  }]; 
-          return nuevoEstado;
-        });
-      };
+    const agregarProducto = (producto) => {
+      setProductosSeleccionados((prev) => {
+        const nuevoEstado = [...prev, { ...producto, descuento: 0, cantidad: 1  }]; 
+        return nuevoEstado;
+      });
+    };
 
   //---[ ACTUALIZAR EL VALOR DE LA CANTIDAD CON EL VALOR QUE PROVIENE DE SU INPUNT ]---
     const actualizar = (index, name, valor) => {
@@ -148,15 +147,17 @@ const MenuCrearMenu = () => {
     <div>
         <div className="MenuPerfilPersonasTab">
           <Tab.Container  id="left-tabs-example"  activeKey={activeKey}  onSelect={(k) => setActiveKey(k)} >
-          <Row>
-            <>
-              <Col name="colizq" className="MenuPerfilPersonasColizq mppImage2 col-equal-height" xs={4} sm={4} md={4} lg={2} xl={2}>
+            <Row>    
+
+              <Col name="colizq"  className="colizq MenuPerfilPersonasColizq mppImage2">
+
                 <div className="d-flex justify-content-center">
-                  <div className="textoCategorias" style={{ fontWeight: 'bold', lineHeight: 4 }}>CREAR MENÚ</div>
+                  <div className="textoCategorias" style={{ fontWeight: 'bold', lineHeight: 3, fontSize: "0.8rem" }}>CREAR MENÚ</div>
                 </div>
+
                 <Nav variant="pills" className="flex-column d-flex justify-content-center"> 
                   {ListaCategorias.map((categoria) => (
-                    <Nav.Item key={categoria.IDCAT} className="text-center flex-fill" style={{"--bs-nav-link-padding-y": "1rem"}} > 
+                    <Nav.Item key={categoria.IDCAT} className="text-center flex-fill" style={{"--bs-nav-link-padding-y": "1rem"}}> 
                       <Nav.Link 
                         className={`Tabstitulo_catcomida nav-link2 ${selectedItem === categoria.IDCAT? "selected" : ""}`}
                         eventKey={categoria.IDCAT}
@@ -166,29 +167,28 @@ const MenuCrearMenu = () => {
                       </Nav.Link>
                     </Nav.Item>
                   ))}
-
                 </Nav>
               </Col>
 
-              <Col name="colder" className="col-equal-height" xs={6} sm={8} md={8} lg={10} xl={10}>
-                  
+              <Col name="colder" className="colder col-equal-height">    
+                        
                 <Tab.Content name="Tab1" className="justify-content-start w-100 align-items-start ">
                   {ListaCategorias.map((categoria) => (             
                     <Tab.Pane key={categoria.IDCAT} eventKey={categoria.IDCAT}>                          
                       <MenuProdXCat
-                      IDCategoria={categoria.IDCAT} 
-                      NombreCategoria={categoria.NOMBRECAT}              
-                      onProductoSeleccionado={agregarProducto} // Pasar callback
-                      TIPOCAT={categoria.TIPOCAT} // Pasar el tipo de categoría                         
+                        IDCategoria={categoria.IDCAT} 
+                        NombreCategoria={categoria.NOMBRECAT}              
+                        onProductoSeleccionado={agregarProducto} // Pasar callback
+                        TIPOCAT={categoria.TIPOCAT} // Pasar el tipo de categoría                         
                       />
                     </Tab.Pane>
                   ))}
                 </Tab.Content>
   
                 <br />
-               <Form name="TotalForm" onSubmit={onSubmit} >
-                  <div name="divintermedio" className="contenedor d-flex align-items-center gap-3 p-2">
-                    
+
+                <Form name="TotalForm" onSubmit={onSubmit} >                  
+                  <div name="divintermedio" className="contenedor d-flex flex-wrap align-items-center gap-3 p-2">    
                       <Form.Group controlId="NMENU" className="me-3">
                         <Form.Label className="ATBJformLabel">Nombre del menú</Form.Label>
                         <Form.Control
@@ -203,7 +203,6 @@ const MenuCrearMenu = () => {
                         >
                         </Form.Control>
                       </Form.Group>
-
                       <Form.Group controlId="FPROG" className="me-3">
                         <Form.Label className="ATBJformLabel">Programar Fecha:</Form.Label>
                         <Form.Control
@@ -218,7 +217,6 @@ const MenuCrearMenu = () => {
                         >
                         </Form.Control>
                       </Form.Group>
-
                       <Form.Group controlId="COMENU" className="me-3">
                           <Form.Label className="ATBJformLabel">Comentario adicional:</Form.Label>
                           <Form.Control
@@ -231,14 +229,14 @@ const MenuCrearMenu = () => {
                             onChange={(e) => {setComentariomenu(e.target.value)}} // Actualizar el estado
                           >
                           </Form.Control>
-                      </Form.Group>                  
-
-                      
+                      </Form.Group>
                   </div>
-
+                  
                   <br />
+
                   <div name="menucrear" className="row-b contenedor ">                    
                       <div className="titulos_MenuCrearMenu">NUEVO MENÚ</div>
+                      
                       <div className="d-flex justify-content-end mb-2 ">
                         <Button className="color_tablabotones" size="sm" onClick={borrarTodosRegistros}>
                           <div >
@@ -249,7 +247,8 @@ const MenuCrearMenu = () => {
                           </div>
                         </Button>
                       </div>
-                      <Table striped bordered className="tabla-redondeada">
+                      
+                      <Table striped bordered className="tabla-redondeada table-responsive">
                         <thead>
                           <tr >
                           <th className="linea">#</th>
@@ -321,10 +320,12 @@ const MenuCrearMenu = () => {
                       <br />
                       <Button type="submit" className="color_tablabotones" size="sm" >Enviar Información</Button>                
                   </div> 
+
                 </Form>
+                
               </Col>
-            </>
-          </Row>          
+            
+            </Row>          
           </Tab.Container>
         </div>
       <Toaster />

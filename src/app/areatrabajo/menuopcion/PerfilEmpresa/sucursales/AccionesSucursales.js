@@ -163,7 +163,7 @@ const AccionesSucursales = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   NAME={"IDCAT9"}
                   ObtOpciones={Catalogos.cat009}
                   ObtOpcioneSuccess={true}
-                  LABEL={"Tipo de Establecimiento2:"}
+                  LABEL={"Tipo de Establecimiento:"}
                 />
               </Col>
 
@@ -218,7 +218,7 @@ const AccionesSucursales = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   NAME={"IDCAT13"}
                   ObtOpciones={Catalogos.cat013}
                   ObtOpcioneSuccess={true}
-                  LABEL={"Municipio2:"}
+                  LABEL={"Municipio:"}
                   FILTRODEPARTAMENTO={filtroDepartamento}
                 />
               </Col>

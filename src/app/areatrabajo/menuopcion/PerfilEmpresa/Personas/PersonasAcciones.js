@@ -90,7 +90,7 @@ const PersonasAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   <Form.Control
                     required
                     type="text"
-                    placeholder=" (Primer Nombre)"
+                    placeholder="Primer Nombre"
                     name="N1"
                     className="ATBJFormInput"
                     value={registrodatos?.N1 ? registrodatos?.N1: ""}
@@ -112,7 +112,7 @@ const PersonasAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   <Form.Control
                     required
                     type="text"
-                    placeholder="Nombre de la Sucursal "
+                    placeholder="Segundo Nombre"
                     name="NOMBRE"
                     className="ATBJFormInput"
                     value={registrodatos?.N2 ? registrodatos?.N2: ""}
@@ -217,7 +217,7 @@ const PersonasAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   <Form.Control
                         required
                         as="select"
-                        name="NACIONALIDAD"
+                        name="ESTADOCIVIL"
                         className="ATBJFormInput"
                         value={registrodatos?.ESTADOCIVIL ? registrodatos?.ESTADOCIVIL : ""}
                         onChange={(e) => {
@@ -242,7 +242,7 @@ const PersonasAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   <Form.Control
                     required
                     type="text"
-                    placeholder="Segundo Apellido"
+                    placeholder="Nacionalidad"
                     name="NACIONALIDAD"
                     className="ATBJFormInput"
                     value={registrodatos?.NACIONALIDAD ? registrodatos?.NACIONALIDAD: ""}
@@ -324,7 +324,7 @@ const PersonasAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   <Form.Control
                     required
                     type="text"
-                    placeholder="Segundo Apellido"
+                    placeholder="NIT / DUI"
                     name="NITDUI"
                     className="ATBJFormInput"
                     value={registrodatos?.NITDUI ? registrodatos?.NITDUI: ""}
@@ -412,7 +412,7 @@ const PersonasAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   <Form.Control
                     required
                     type="TEL"
-                    placeholder="Segundo Apellido"
+                    placeholder="Teléfono"
                     name="TEL"
                     className="ATBJFormInput"
                     value={registrodatos?.TEL ? registrodatos?.TEL: ""}
@@ -516,7 +516,7 @@ const PersonasAcciones = ({ DATOS, IDEMPRE, closeModal, ETIQUETA }) => {
                   <Form.Control
                     required
                     type="text"
-                    placeholder="Descripción"
+                    placeholder="Comentario Adicional"
                     name="DESCRIPCION"
                     className="ATBJFormInput"
                     value={registrodatos?.DESCRIPCION ? registrodatos?.DESCRIPCION: ""}

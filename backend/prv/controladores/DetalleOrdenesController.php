@@ -48,11 +48,11 @@ class DetalleOrdenesController {
                         $this->obj->setC_activo('S');
                         // Asignar valores del producto al objeto
                         $this->obj->setId_producto($producto['IDPROD']);
-                        $this->obj->setDc_preciounidad($producto['PRECIOG']);
+                        $this->obj->setDc_preciounidad($producto['precioSeleccionado']);
                         $this->obj->setI_cantidad($producto['cantidad']);
-                        $this->obj->setDc_preciofinal($producto['PRECIOG'] * $producto['cantidad']);
+                        $this->obj->setDc_preciofinal($producto['precioSeleccionado'] * $producto['cantidad']);
                         $this->obj->setDc_descuento($producto['descuento']);
-                        $this->obj->setDc_totalapagar(($producto['PRECIOG'] * $producto['cantidad']) - $producto['descuento']);                
+                        $this->obj->setDc_totalapagar(($producto['precioSeleccionado'] * $producto['cantidad']) - $producto['descuento']);                
                         $tempresp = $this->obj->agregar();
                     }
                     if($tempresp ){

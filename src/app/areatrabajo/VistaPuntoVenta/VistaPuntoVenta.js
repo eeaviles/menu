@@ -8,8 +8,8 @@ import Imprimir from "./Imprimir4";
 
 const VistaPuntoVenta = () => {
 
-  const [selectedItem, setSelectedItem] = useState(2); 
-  const [activeKey, setActiveKey] = useState(2);   
+  const [selectedItem, setSelectedItem] = useState(1); 
+  const [activeKey, setActiveKey] = useState(1);   
   const [productosSeleccionados, setProductosSeleccionados] = useState([]);
   const [metodoPago, setMetodoPago] = useState("E"); // Estado para el método de pago
   const [estadoOrden, setEstadoOrden] = useState("P"); // Estado para el estado de la orden
@@ -237,10 +237,10 @@ const VistaPuntoVenta = () => {
           <Tab.Container  id="left-tabs-example"  activeKey={activeKey}  onSelect={(k) => setActiveKey(k)} >
             <Row>
               <>
-                <Col name="colizq" className="MenuPerfilPersonasColizq mppImage2 col-equal-height" xs={4} sm={4} md={4} lg={2} xl={2}>
-                <div className="d-flex justify-content-center">
-                  <div className="textoCategorias" style={{ fontWeight: 'bold', lineHeight: 4 }}>CREAR ORDENES</div>
-                </div>               
+                <Col name="colizq" className="colizq MenuPerfilPersonasColizq mppImage2">
+                  <div className="d-flex justify-content-center">
+                    <div className="textoCategorias" style={{ fontWeight: 'bold', lineHeight: 3, fontSize: "0.9rem" }}>CREAR ORDENES</div>
+                  </div>               
                   <Nav variant="pills" className="flex-column d-flex justify-content-center">
                     {ListaCategorias.map((categoria) => (
                       <Nav.Item key={categoria.IDCAT} className="text-center flex-fill" style={{"--bs-nav-link-padding-y": "1rem"}} >
@@ -257,7 +257,7 @@ const VistaPuntoVenta = () => {
                   </Nav>
                 </Col>
 
-                <Col name="colder" className="col-equal-height" xs={6} sm={8} md={8} lg={10} xl={10}>                    
+                <Col name="colder" className="colder col-equal-height">             
                   
                   <Tab.Content name="Tab1" className="justify-content-start w-100 align-items-start">
                     {ListaCategorias.map((categoria) => (             
@@ -403,6 +403,7 @@ const VistaPuntoVenta = () => {
                       {/* Modal para mostrar el resumen */}
 
                       <Modal show={showModal} onHide={() => setShowModal(false)} centered dialogClassName="modal-ticket">
+                        
                         <Modal.Header closeButton>
                           <Modal.Title style={{ textAlign: "center", width: "100%" }}>Cafégarzan</Modal.Title>
                         </Modal.Header>
@@ -410,42 +411,42 @@ const VistaPuntoVenta = () => {
                         <Modal.Body>
                           {resumenProductos.length > 0 ? (
                             <div className="ticket ">
-                              <h5 className="text-center">Ticket de Compra</h5>
-                              <p className="text-center" style={{ fontSize: "12px", margin: "0" }}>
-                                {fechaHoraTicket}
-                              </p>
-                              <p className="text-center" style={{ fontSize: "12px", margin: "0", fontWeight: "bold" }}>
-                              Código: {codigoOrden}
-                            </p>
+                              <p className="text-center" style={{ fontSize: "16px", margin: "0"}}>Ticket de Compra</p>
+                              <p className="text-center" style={{ fontSize: "16px", margin: "0"}}>CÓDIGO: {codigoOrden}</p>
+                              <p className="text-center" style={{ fontSize: "16px", margin: "0" }}>CAFÉ GARZAN</p>
+                              <p className="text-center" style={{ fontSize: "12px", margin: "0" }}>FECHA: {fechaHoraTicket}</p>
                               <hr />
                               <Table bordered className="tabla-redondeada">
                                 <thead>
-                                  <tr>
-                                    <th>Nombre</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio</th>
-                                    <th>Subtotal</th>
-                                  </tr>
+                                <tr>
+                                  <th>Nombre</th>
+                                  <th>Cant</th>
+                                  <th>Pre</th>
+                                  <th>Desc</th>
+                                  <th>SubT</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                   {resumenProductos.map((producto, index) => {
                                     const precio = parseFloat(producto.precioSeleccionado || 0).toFixed(2);
+                                    const descuento = parseFloat(producto.descuento || 0).toFixed(2);
                                     const subtotal = (producto.cantidad * precio - producto.descuento).toFixed(2);
                                     return (
                                       <tr key={index}>
                                         <td>{producto.PRODNOM}</td>
                                         <td>{producto.cantidad}</td>
                                         <td>${precio}</td>
+                                        <td>${descuento}</td>
                                         <td>${subtotal}</td>
                                       </tr>
                                     );
                                   })}
                                     <tr>
-                                      <td colSpan="3" className="text-end">
+                                      <td colSpan="4" className="text-end">
                                         <strong>Total a Pagar:</strong>
                                       </td>
                                       <td>
-                                        <strong>${totales.totalAPagar.toFixed(2)}</strong>
+                                        <strong>${parseFloat(totales.totalAPagar).toFixed(2)}</strong>
                                       </td>
                                     </tr>
                                   </tbody>

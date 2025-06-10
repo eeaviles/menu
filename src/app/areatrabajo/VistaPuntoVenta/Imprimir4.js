@@ -50,6 +50,8 @@ const Imprimir = (datos) => {
       if (!datos) {
         console.error("No hay datos disponibles para imprimir.");
         return;
+      }else{
+        console.log(datos);
       }
   
       connectQZ()
@@ -80,19 +82,18 @@ const Imprimir = (datos) => {
                 '\x0A',
                 `CÓDIGO: ${datos.codigo}`,
                 '\x0A',
-                'CAFÉ GARZÁN' + '\x0A',
-                'FECHA:' + new Date().toLocaleString() + '\x0A',
+                'CAFÉ GARZÁN\x0A',
+                `FECHA:${new Date().toLocaleString()}\x0A`,
                 '\x1B\x61\x30', // left align
                 '\x0A',         // Salto de línea
                 '\x1B\x4D\x31', // small text
-                `${'Nombre'.padEnd(20)}` +  `${'Cant'.padStart(6)}` + 
-                `${'Pre'.padStart(8)}` + `${'Des'.padStart(8)}` +  `${'SubT'.padStart(10)}`+ '\x0A', 
+                `${'Nombre'.padEnd(20)}${'Cant'.padStart(6)}${'Pre'.padStart(8)}${'Des'.padStart(8)}${'SubT'.padStart(10)}\x0A`,
                 ...datos.productos.map((p) =>
                     `${p.nombre.substring(0, 20).padEnd(20)} ${String(p.cantidad).padStart(4)} ${`${p.precio.toFixed(2)}`.padStart(8)} ${`${p.descuento.toFixed(2)}`.padStart(8)} ${`${p.subtotal.toFixed(2)}`.padStart(8)}\x0A`
                 ),
-                '-------------------------------------------------------' + '\x0A',
+                '-------------------------------------------------------\x0A',
                 '\x1B\x4D\x30', // normal text
-                `TOTAL                              $${parseFloat(datos.total).toFixed(2)}` + '\x0A', 
+                `TOTAL                              $${parseFloat(datos.total).toFixed(2)}\x0A`, 
                 '\x0A',                   // Salto de línea
                 '\x1B\x64\x05',           // Alimentar 5 líneas
                 '\x1D\x56\x01'            // Cortar papel
